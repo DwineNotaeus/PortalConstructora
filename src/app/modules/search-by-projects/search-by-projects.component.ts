@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { FileUtilities } from 'src/app/core/models/file-utilities';
 import { Projects, ProjectsIds } from 'src/app/core/models/projects.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ProjectsService } from 'src/app/core/services/projects.service';
+import { UtilitiesService } from 'src/app/core/services/utilities.service';
+
 
 @Component({
   selector: 'app-search-by-projects',
   templateUrl: './search-by-projects.component.html',
   styleUrls: ['./search-by-projects.component.css']
 })
-export class SearchByProjectsComponent implements OnInit {
+export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public isAll: boolean;
   public showFilter = true;
@@ -17,11 +23,42 @@ export class SearchByProjectsComponent implements OnInit {
   public LstCodigoProyectos = [];
   public selectedItems: ProjectsIds[];
 
-  constructor(private serviceProjects: ProjectsService) { }
+  public ProjectsModel: Projects;
+  public roleId: number;
+  public rutaimagen: string = "";
+  private fileup: FileUtilities;
+
+
+
+
+  public dtOptions: any = {};
+  public dtTrigger: Subject<any> = new Subject<any>();
+
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+
+  constructor(private serviceAuth: AuthService, private serviceProjects: ProjectsService, private serviceUtilities: UtilitiesService) {
+    this.ProjectsModel = new Projects();
+  }
 
   ngOnInit(): void {
     this.ConfigurarMultiSelect();
     this.LoadProjectxUser();
+    this.optionsDatatable();
+
+  }
+
+  optionsDatatable() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      // serverSide: true,
+      // processing: true
+      // paging: true,
+      // searching: false,
+      // destroy: true,
+      lengthChange: false
+    };
   }
 
   ConfigurarMultiSelect() {
@@ -47,7 +84,7 @@ export class SearchByProjectsComponent implements OnInit {
 
   ConsultProjectsByUser() {
 
-    
+    this.LstCodigoProyectos = [];
     let search = this.dropdownProperties();
 
     search.selectedValue.forEach(element => {
@@ -55,11 +92,102 @@ export class SearchByProjectsComponent implements OnInit {
     });
 
     if (search.Isvalidate) {
-      this.serviceProjects.getProjectsByUser(this.LstCodigoProyectos, this.isAll).subscribe(response => {
-        this.LstProjectsxUser = Object.assign(response['Data']);
-      }, error => { console.log(error) });
+
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+
+        this.serviceProjects.getProjectsByUser(this.LstCodigoProyectos, this.isAll).subscribe(response => {
+          this.LstProjectsxUser = Object.assign(response['Data']);
+          console.log('LstProjectsxUser', this.LstProjectsxUser);
+          this.dtTrigger.next();
+        }, error => { console.log(error) });
+
+      });
+
     }
   }
+
+
+  gridDetailsProject(item: Projects) {
+    debugger;
+    console.log('item', item)
+    this.ProjectsModel.RadicadoBanco = item.RadicadoBanco;
+
+    this.ProjectsModel.DetalleObservacion = item.DetalleObservacion;
+    this.ProjectsModel.Novedad = item.Novedad;
+    this.ProjectsModel.Evaluate = item.Evaluate;
+    this.ProjectsModel.Registration = item.Registration;
+    this.ProjectsModel.DeliveryCertificate = item.DeliveryCertificate;
+    this.ProjectsModel.Approval = item.Approval;
+    this.ProjectsModel.Ratification = item.Ratification;
+    this.ProjectsModel.Other = item.Other;
+    this.ProjectsModel.DocumentRoute = item.DocumentRoute;
+    this.ProjectsModel.ApprovalDocumentName = item.ApprovalDocumentName;
+
+  }
+
+  openFileUploadDiolog(docType: string, projectsModel: Projects, status: string, docName: string) {
+alert('ok');
+    debugger;
+
+    if (this.roleId == 1 || this.roleId == 2 || this.roleId == 4) {
+
+
+
+      if (status == 'PENDIENTE') {
+
+
+
+        if (docType == 'Otros') {
+
+        }
+        /* si es aprobacion o ratificacion, debe ser rol 2 o 4 pra poder subir documentos*/
+        this.roleId = this.serviceAuth.decodificarToken();
+        if (docName == 'Approval' || docName == 'Ratification') {
+          if (this.roleId == 2 || this.roleId == 4) {
+            // TO DO: Mensajes del portal
+          }
+        }
+        else {
+          // TO DO: Mensajes del portal
+        }
+      } else {
+
+        if (status != 'PENDIENTE') {
+          if (docName == 'Ratification') {
+            this.rutaimagen = projectsModel.DocumentRoute + '/Ratificación/' + projectsModel.ApprovalDocumentName;
+          }
+
+          if (docName == 'Approval') {
+            this.rutaimagen = projectsModel.DocumentRoute + '/Aprobación/' + projectsModel.ApprovalDocumentName;
+          }
+        }
+
+        if (docName == 'Approval' || docName == 'Ratification') {
+
+          var formData = new FormData();
+          formData.append('fileurl', this.rutaimagen);
+          this.serviceUtilities.getBase64FromUrl(formData).subscribe(data => {
+            this.fileup.downloadFile(data, this.rutaimagen);
+          });
+        }
+
+      }
+
+    }
+  }
+
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
 
   dropdownProperties() {
     let dropdown = {
@@ -88,7 +216,5 @@ export class SearchByProjectsComponent implements OnInit {
       return filterArray.indexOf(item.NombreProyecto) > -1;
     });
   }
-
-
 
 }

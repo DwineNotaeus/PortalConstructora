@@ -9,9 +9,10 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { OnlyNumberDirective } from "src/app/shared/directives/only-number.directive";
 import { SharedModule } from "src/app/shared/shared.module";
 import { OnlyLetterDirective } from "src/app/shared/directives/only-letter.directive";
+import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 
 @NgModule({
-    imports: [SharedModule, ProjectsRoutingModule, DataTablesModule, CommonModule],
+    imports: [SharedModule, ProjectsRoutingModule, DataTablesModule, CommonModule, NgMultiSelectDropDownModule.forRoot()],
     declarations: [ProjectsComponent, CrearComponent, EditarComponent, ContactoComponent, OnlyNumberDirective, OnlyLetterDirective]
 })
 

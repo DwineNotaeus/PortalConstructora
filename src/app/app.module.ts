@@ -9,7 +9,7 @@ import { LoginComponent } from './modules/authentication/login/login.component';
 import { Interceptor } from './core/interceptors/interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConsultasIQGuard } from './core/guards/consultas-iq.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MsalModule } from '@azure/msal-angular';
 import { DataTablesModule } from 'angular-datatables';
 import { SearchByProjectsComponent } from './modules/search-by-projects/search-by-projects.component';
@@ -32,13 +32,12 @@ import { BulkLoadComponent } from './modules/bulk-load/bulk-load.component';
     LayoutModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
     MsalModule.forRoot({
       auth: {
-        // clientId: "cb0ddcd3-1cd3-4cf2-b4bf-334b61621b67",
-        // authority: "https://pruebacontosob2c.b2clogin.com/pruebacontosob2c.onmicrosoft.com/B2C_1_login",
-         clientId: "f718e0e4-5896-4b25-a039-ea2d6bc3f365", // pruebas B2C
-        authority: "https://iqoutsourcingtestb2c.b2clogin.com/iqoutsourcingtestb2c.onmicrosoft.com/B2C_1_login", // pruebas B2C
+        clientId: "cb0ddcd3-1cd3-4cf2-b4bf-334b61621b67",
+        authority: "https://pruebacontosob2c.b2clogin.com/pruebacontosob2c.onmicrosoft.com/B2C_1_login",
         validateAuthority: false,
         redirectUri: "http://localhost:4200/" // desarrollo
       },

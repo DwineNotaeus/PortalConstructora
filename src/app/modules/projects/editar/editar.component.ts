@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import Stepper from 'bs-stepper';
 import { Subject } from 'rxjs';
+import { ProjectsService } from 'src/app/core/services/projects.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,11 +14,11 @@ export class EditarComponent implements OnDestroy, OnInit {
 
   public dtOptions: DataTables.Settings = {};
   private stepper: Stepper;
-  persons: any[] = [];
+  lstProjects: any[] = [];
 
   public dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private projectService: ProjectsService) {
   }
 
 
@@ -25,7 +26,8 @@ export class EditarComponent implements OnDestroy, OnInit {
     debugger;
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 5,
+      lengthChange: false    
     };
     this.cargarDT();
     this.cargarStepper();
@@ -34,10 +36,13 @@ export class EditarComponent implements OnDestroy, OnInit {
   }
 
   cargarDT() {
-    this.httpClient.post(`${environment.urlApi}ProjectDetails/GetRegion`, '').subscribe((data: any) => {
-      this.persons = Object.assign(data['Data']);
+
+    this.projectService.getAllProjects().subscribe(data => {
+      this.lstProjects = Object.assign(data['Data']);
+      console.log('lstProjects', this.lstProjects)
       this.dtTrigger.next();
     });
+
   }
 
   cargarStepper(){

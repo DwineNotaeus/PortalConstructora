@@ -4,24 +4,46 @@
   </div>
   <div class="inner-container">
 
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-     class="table row-border hover">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
       <thead>
         <tr>
-          <th>CÓDIGO</th>
-          <th>DESCRIPCIÓN</th>
+          <th scope="col">PROYECTO</th>
+          <th scope="col">CONSTRUCTORA</th>
+          <th scope="col">CIUDAD</th>
+          <th scope="col">DIRECCIÓN</th>
+          <th scope="col">ETAPA/TORRE</th>
+          <th scope="col">FECHA ENTREGA INMUEBLE</th>
+          <th scope="col">TIPO PROYECTO</th>
+          <th scope="col">TIPO INMUEBLE</th>
+          <th scope="col">AVALÚO TIPO</th>
+          <th scope="col">ESTRATO INMUEBLE</th>
+          <th scope="col">NÚMERO UNIDADES</th>
+          <th scope="col">DIRECCIÓN PROYECTO</th>
+          <th scope="col">INSTRUMENTADOR</th>
+          <th scope="col">ESTADO</th>
           <th>SELECCIONAR</th>
-          <th>CONTACTO</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let person of persons">
-          <td>{{ person.idRegion }}</td>
-          <td>{{ person.Nombre }}</td>
+        <tr *ngFor="let elemento of lstProjects">
+          <td>{{elemento.Nombre}}</td>
+          <td>{{elemento.NombreConstructora}}</td>
+          <td>{{elemento.NombreCiudad}}</td>
+          <td>{{elemento.Direccion}}</td>
+          <td>{{elemento.Etapa_Torre}}</td>
+          <td>{{elemento.FechaEntrega}}</td>
+          <td>{{elemento.TipoProyecto}}</td>
+          <td>{{elemento.TipoInmueble}}</td>
+          <td>{{elemento.AvaluoTipo}}</td>
+          <td>{{elemento.EstratoInmueble}}</td>
+          <td>{{elemento.NumeroUnidades}}</td>
+          <td>{{elemento.DireccionProyecto}}</td>
+          <td>{{elemento.Instrumentador}}</td>
+          <td>{{elemento.Estado }}</td>
           <td>
             <button class="btn btn-link btn-cursor" data-toggle="modal" data-target="#EditarContacto">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
                   d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                 <path fill-rule="evenodd"
@@ -29,7 +51,6 @@
               </svg>
             </button>
           </td>
-          <td><button class="btn btn-link btn-cursor">Ver</button></td>
         </tr>
       </tbody>
     </table>
@@ -39,352 +60,353 @@
 <!-- EditarProyecto -->
 <div class="modal fade" id="EditarContacto" tabindex="-1" aria-labelledby="EditarContactoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-responsive" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Editar proyecto</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar proyecto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
 
-      <div id="stepper1" class="bs-stepper">
-        <div class="bs-stepper-header">
-          <div class="step" data-target="#test-l-1">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">1</span>
-              <span class="bs-stepper-label">DATOS BÁSICOS</span>
-            </button>
-          </div>
-          <div class="line"></div>
-          <div class="step" data-target="#test-l-2">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">2</span>
-              <span class="bs-stepper-label">DATOS ADICIONALES</span>
-            </button>
-          </div>
-          <div class="line"></div>
-          <div class="step" data-target="#test-l-3">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">3</span>
-              <span class="bs-stepper-label">ESTADO</span>
-            </button>
-          </div>
-          <div class="line"></div>
-          <div class="step" data-target="#test-l-4">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">4</span>
-              <span class="bs-stepper-label">FECHA ETAPA</span>
-            </button>
-          </div>
-          <div class="line"></div>
-          <div class="step" data-target="#test-l-5">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">5</span>
-              <span class="bs-stepper-label">CONTACTO</span>
-            </button>
-          </div>
-        </div>
-        <div class="bs-stepper-content">
-      
-          <div id="test-l-1" class="content">
-      
-            <form autocomplete="off">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>PROYECTO *</label>
-                    <input class="form-control" type="text" placeholder="Campo alfanumérico" maxlength="51" />
-                  </div>
-                  <div class="form-group">
-                    <label>CONSTRUCTORA *</label>
-                    <input class="form-control" type="text" placeholder="Ingresar mínimo 5 dígitos" />
-                  </div>
-                  <div class="form-group">
-                    <label>FECHA ENTREGA INMUEBLE</label>
-                    <input class="form-control" type="date" placeholder="Seleccionar fecha" />
-                  </div>
-                  <div class="form-group">
-                    <label>ESTRATO INMUEBLE</label>
-                    <input class="form-control" type="text" placeholder="Campo númerico" maxlength="1" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>REGIÓN *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>DEPARTAMENTO *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>CIUDAD *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>DIRECCIÓN *</label>
-                    <input class="form-control" type="text" placeholder="Ingrese dirección" maxlength="51" />
-                  </div>
-                </div>
-              </div>
-            </form>
-      
-          </div>
-      
-          <div id="test-l-2" class="content">
-      
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>TIPO DE PROYECTO *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                      <option value="VIP">VIP</option>
-                      <option value="VIS">VIS</option>
-                      <option value="MIXTO">MIXTO</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>TIPO DE INMUEBLE *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                      <option value="VIVIENDA">VIVIENDA</option>
-                      <option value="LOCAL">LOCAL</option>
-                      <option value="OFICINA">OFICINA</option>
-                      <option value="MIXTA">MIXTA</option>
-                      <option value="OTROS">OTROS</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>ETAPA/TORRE</label>
-                    <input class="form-control" type="text" placeholder="Ingrese etapa/torre" maxlength="31" />
-                  </div>
-                  <div class="form-group">
-                    <label>NÚMERO DE UNIDADES</label>
-                    <input class="form-control" type="text" placeholder="Campo númerico" maxlength="3" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>AVALÚO TIPO *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                      <option value="SI">SÍ</option>
-                      <option value="NO">NO</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>DIRECCIÓN DEL PROYECTO*</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción</option>
-                      <option value="FINANCIADO">FINANCIADO</option>
-                      <option value="GERENCIADO">GERENCIADO</option>
-                      <option value="FINANCIADO/GERENCIADO">FINANCIADO/GERENCIADO</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>INSTRUMENTADOR *</label>
-                    <input class="form-control" type="text" placeholder="Campo alfanumérico" maxlength="50" />
-                  </div>
-                </div>
-              </div>
-            </form>
-      
-          </div>
-      
-      
-          <div id="test-l-3" class="content">
-      
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>ESTADO CONSTRUCCIÓN *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="EN PROCESO">EN PROCESO</option>
-                      <option value="TERMINADO">TERMINADO</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>ESTADO AVALÚO *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="PENDIENTE">PENDIENTE</option>
-                      <option value="ASIGNADO">ASIGNADO</option>
-                      <option value="EN PROCESO">EN PROCESO</option>
-                      <option value="ENTREGADO">ENTREGADO</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>ESTADO ESTUDIO DE TÍTULOS *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="PENDIENTE">PENDIENTE</option>
-                      <option value="ASIGNADO">ASIGNADO</option>
-                      <option value="EN PROCESO">EN PROCESO</option>
-                      <option value="ENTREGADO">ENTREGADO</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>ESTADO FIRMA DE ESCRITURAS *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="PENDIENTE">PENDIENTE</option>
-                      <option value="FIRMA OK">FIRMA OK</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6">
-      
-                  <div class="form-group">
-                    <label>ESTADO BOLETA REGISTRADA *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="PENDIENTE">PENDIENTE</option>
-                      <option value="ENTREGADA">ENTREGADA</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>ESTADO ENTREGA VIVIENDA *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="AGENDADA">AGENDADA</option>
-                      <option value="ENTREGADA">ENTREGADA</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </form>
-      
-          </div>
-      
-      
-          <div id="test-l-4" class="content">
-      
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>AVALÚO *</label>
-                    <input class="form-control" type="date" />
-                  </div>
-      
-                  <div class="form-group">
-                    <label>ESTUDIO DE TÍTULOS *</label>
-                    <input class="form-control" type="date" />
-                  </div>
-      
-                  <div class="form-group">
-                    <label>FECHA TIPO ENTREGA INMUEBLE *</label>
-                    <input class="form-control" type="date" />
-                  </div>
-      
-                  <div class="form-group">
-                    <label>TIPO ENTREGA INMUEBLE *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                      <option value="BOLETA REGISTRADA">BOLETA REGISTRADA</option>
-                      <option value="FIRMA DE ESCRITURAS">FIRMA DE ESCRITURAS</option>
-                      <option value="ESCRITURAS REGISTRADAS">ESCRITURAS REGISTRADAS
-                      </option>
-                    </select>
-                  </div>
-      
-      
-                </div>
-              </div>
-            </form>
-      
-          </div>
-      
-      
-      
-          <div id="test-l-5" class="content">
-      
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>NOMBRE CONTACTO *</label>
-                    <input class="form-control" type="text" placeholder="Campo alfanúmerico" maxlength="51" />
-                  </div>
-      
-                  <div class="form-group">
-                    <label>REGIÓN *</label>
-                    <select class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción </option>
-                    </select>
-                  </div>
-      
-                  <div class="form-group">
-                    <label>E-MAIL *</label>
-                    <input class="form-control" type="text" placeholder="Ingrese correo electrónico válido" maxlength="51" />
-                  </div>
-      
-                  <div class="form-group">
-                    <label>DIRECCIÓN *</label>
-                    <input class="form-control" type="text" placeholder="Campo alfanúmerico" maxlength="51" />
-                  </div>
-                </div>
-      
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>TIPO DE CONTACTO *</label>
-                    <select id="cmbTipoContacto" class="form-control">
-                      <option value="" disabled selected> Seleccionar una opción
-                      </option>
-                    </select>
-                  </div>
-      
-                  <div class="form-group">
-                    <label>TELÉFONO FIJO *</label>
-                    <input class="form-control" type="text" placeholder="Ingresar solo números" maxlength="8" />
-                  </div>
-      
-                  <div class="form-group">
-                    <label>CELULAR *</label>
-                    <input class="form-control" type="text" placeholder="Ingresar solo números" maxlength="11" />
-                  </div>
-      
-                </div>
-              </div>
-            </form>
-      
-          </div>
-      
-          <div class="input-group input-group-location">
-            <hr>
-            <div class="input-group-append" id="button-addon4">
-              <button (click)="previous()" class="btn btn-outline-secondary">Previous</button>
-              <button (click)="next()" class="btn btn-outline-secondary">Next</button>
+        <div id="stepper1" class="bs-stepper">
+          <div class="bs-stepper-header">
+            <div class="step" data-target="#test-l-1">
+              <button class="step-trigger">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">DATOS BÁSICOS</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#test-l-2">
+              <button class="step-trigger">
+                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-label">DATOS ADICIONALES</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#test-l-3">
+              <button class="step-trigger">
+                <span class="bs-stepper-circle">3</span>
+                <span class="bs-stepper-label">ESTADO</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#test-l-4">
+              <button class="step-trigger">
+                <span class="bs-stepper-circle">4</span>
+                <span class="bs-stepper-label">FECHA ETAPA</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#test-l-5">
+              <button class="step-trigger">
+                <span class="bs-stepper-circle">5</span>
+                <span class="bs-stepper-label">CONTACTO</span>
+              </button>
             </div>
           </div>
-      
-      
-      
+          <div class="bs-stepper-content">
+
+            <div id="test-l-1" class="content">
+
+              <form autocomplete="off">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>PROYECTO *</label>
+                      <input class="form-control" type="text" placeholder="Campo alfanumérico" maxlength="51" />
+                    </div>
+                    <div class="form-group">
+                      <label>CONSTRUCTORA *</label>
+                      <input class="form-control" type="text" placeholder="Ingresar mínimo 5 dígitos" />
+                    </div>
+                    <div class="form-group">
+                      <label>FECHA ENTREGA INMUEBLE</label>
+                      <input class="form-control" type="date" placeholder="Seleccionar fecha" />
+                    </div>
+                    <div class="form-group">
+                      <label>ESTRATO INMUEBLE</label>
+                      <input class="form-control" type="text" placeholder="Campo númerico" maxlength="1" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>REGIÓN *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>DEPARTAMENTO *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>CIUDAD *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>DIRECCIÓN *</label>
+                      <input class="form-control" type="text" placeholder="Ingrese dirección" maxlength="51" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+            <div id="test-l-2" class="content">
+
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>TIPO DE PROYECTO *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                        <option value="VIP">VIP</option>
+                        <option value="VIS">VIS</option>
+                        <option value="MIXTO">MIXTO</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>TIPO DE INMUEBLE *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                        <option value="VIVIENDA">VIVIENDA</option>
+                        <option value="LOCAL">LOCAL</option>
+                        <option value="OFICINA">OFICINA</option>
+                        <option value="MIXTA">MIXTA</option>
+                        <option value="OTROS">OTROS</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>ETAPA/TORRE</label>
+                      <input class="form-control" type="text" placeholder="Ingrese etapa/torre" maxlength="31" />
+                    </div>
+                    <div class="form-group">
+                      <label>NÚMERO DE UNIDADES</label>
+                      <input class="form-control" type="text" placeholder="Campo númerico" maxlength="3" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>AVALÚO TIPO *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                        <option value="SI">SÍ</option>
+                        <option value="NO">NO</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>DIRECCIÓN DEL PROYECTO*</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción</option>
+                        <option value="FINANCIADO">FINANCIADO</option>
+                        <option value="GERENCIADO">GERENCIADO</option>
+                        <option value="FINANCIADO/GERENCIADO">FINANCIADO/GERENCIADO</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>INSTRUMENTADOR *</label>
+                      <input class="form-control" type="text" placeholder="Campo alfanumérico" maxlength="50" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+
+            <div id="test-l-3" class="content">
+
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>ESTADO CONSTRUCCIÓN *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="EN PROCESO">EN PROCESO</option>
+                        <option value="TERMINADO">TERMINADO</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>ESTADO AVALÚO *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="ASIGNADO">ASIGNADO</option>
+                        <option value="EN PROCESO">EN PROCESO</option>
+                        <option value="ENTREGADO">ENTREGADO</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>ESTADO ESTUDIO DE TÍTULOS *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="ASIGNADO">ASIGNADO</option>
+                        <option value="EN PROCESO">EN PROCESO</option>
+                        <option value="ENTREGADO">ENTREGADO</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>ESTADO FIRMA DE ESCRITURAS *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="FIRMA OK">FIRMA OK</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+                      <label>ESTADO BOLETA REGISTRADA *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="ENTREGADA">ENTREGADA</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>ESTADO ENTREGA VIVIENDA *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="AGENDADA">AGENDADA</option>
+                        <option value="ENTREGADA">ENTREGADA</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+
+            <div id="test-l-4" class="content">
+
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>AVALÚO *</label>
+                      <input class="form-control" type="date" />
+                    </div>
+
+                    <div class="form-group">
+                      <label>ESTUDIO DE TÍTULOS *</label>
+                      <input class="form-control" type="date" />
+                    </div>
+
+                    <div class="form-group">
+                      <label>FECHA TIPO ENTREGA INMUEBLE *</label>
+                      <input class="form-control" type="date" />
+                    </div>
+
+                    <div class="form-group">
+                      <label>TIPO ENTREGA INMUEBLE *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                        <option value="BOLETA REGISTRADA">BOLETA REGISTRADA</option>
+                        <option value="FIRMA DE ESCRITURAS">FIRMA DE ESCRITURAS</option>
+                        <option value="ESCRITURAS REGISTRADAS">ESCRITURAS REGISTRADAS
+                        </option>
+                      </select>
+                    </div>
+
+
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+
+
+            <div id="test-l-5" class="content">
+
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>NOMBRE CONTACTO *</label>
+                      <input class="form-control" type="text" placeholder="Campo alfanúmerico" maxlength="51" />
+                    </div>
+
+                    <div class="form-group">
+                      <label>REGIÓN *</label>
+                      <select class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>E-MAIL *</label>
+                      <input class="form-control" type="text" placeholder="Ingrese correo electrónico válido"
+                        maxlength="51" />
+                    </div>
+
+                    <div class="form-group">
+                      <label>DIRECCIÓN *</label>
+                      <input class="form-control" type="text" placeholder="Campo alfanúmerico" maxlength="51" />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>TIPO DE CONTACTO *</label>
+                      <select id="cmbTipoContacto" class="form-control">
+                        <option value="" disabled selected> Seleccionar una opción
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>TELÉFONO FIJO *</label>
+                      <input class="form-control" type="text" placeholder="Ingresar solo números" maxlength="8" />
+                    </div>
+
+                    <div class="form-group">
+                      <label>CELULAR *</label>
+                      <input class="form-control" type="text" placeholder="Ingresar solo números" maxlength="11" />
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+            <div class="input-group input-group-location">
+              <hr>
+              <div class="input-group-append" id="button-addon4">
+                <button (click)="previous()" class="btn btn-outline-secondary">Previous</button>
+                <button (click)="next()" class="btn btn-outline-secondary">Next</button>
+              </div>
+            </div>
+
+
+
+          </div>
         </div>
+
+
+
+
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Registrar</button>
 
 
-
-
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Registrar</button>
-
-
+      </div>
     </div>
   </div>
-</div>
 </div>

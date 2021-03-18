@@ -22,6 +22,12 @@ export class Projects {
     public RatificationDocumentName: string;
     public DocumentRoute: string;
     public MontoAprobado: string;
+
+    /**
+     *
+     */
+    // constructor(public RadicadoBanco: string = null) {        
+    // }
 }
 
 export class ProjectsIds {

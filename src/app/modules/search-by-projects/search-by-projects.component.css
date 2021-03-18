@@ -5,3 +5,19 @@
 .btn-ubiety {
   margin-top: 30px;
 }
+
+a:hover {
+  cursor: pointer;
+}
+
+.dt-container {
+  margin-top: 4%;
+}
+
+.card{
+  width: 100% !important;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "Elegir archivo";
+}

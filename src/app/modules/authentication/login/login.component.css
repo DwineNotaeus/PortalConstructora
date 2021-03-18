@@ -8,6 +8,7 @@ html {
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    
   }
   
   a {
@@ -265,3 +266,10 @@ html {
     width:60%;
   }
   
+
+  .bg-Login {
+    background-image: url(../../../../assets/img/MarcaDeAguaIq.png);
+    background-size: 86%;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+}

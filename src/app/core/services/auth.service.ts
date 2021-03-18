@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserLogin, UserToken } from '../models/user.model';
+import jwt_decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  public roleId: number;
 
   constructor(private _http: HttpClient) {
   }
@@ -30,6 +33,14 @@ export class AuthService {
 
   getUserToken(): UserToken {
     return localStorage.userToken;
+  }
+
+  decodificarToken(){
+    var token = localStorage.userToken;
+    var decoded = jwt_decode(token);
+    if (decoded != undefined) {
+      return this.roleId = decoded['role']
+    }
   }
 
   getUserNameLoggedIn() {

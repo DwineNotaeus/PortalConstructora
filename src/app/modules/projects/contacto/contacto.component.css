@@ -16,3 +16,7 @@
     width: 810px !important;
   }
 }
+
+#AgregarContacto{
+  overflow-y: hidden;
+}
