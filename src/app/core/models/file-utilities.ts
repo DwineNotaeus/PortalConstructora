@@ -7,8 +7,6 @@ export class FileUtilities {
 
     generatedImage: any;
 
-
-
     getBase64ImageFromURL(url: string) {
         class type {
             ext: string;
@@ -24,6 +22,7 @@ export class FileUtilities {
             }
         }
     }
+
     getBase64ImageReturn(url: string) {
         return Observable.create((observer: Observer<string>) => {
             
@@ -189,6 +188,7 @@ export class FileUtilities {
 
 
     }
+
     getExt(url, type) {
 
         var k = new type();
@@ -257,4 +257,16 @@ export class FileUtilities {
         });
 
     }
+
+    getFormatDate(dateValue: string) {
+        if (dateValue != null) {
+          let SegmentoFecha = dateValue.split("/");
+          let dd = SegmentoFecha[0];
+          let mm = SegmentoFecha[1];
+          let yyyy = SegmentoFecha[2];
+          let FechaFormateada = yyyy + "-" + mm + "-" + dd + "T00:00:00";    
+          return FechaFormateada;
+        }
+      }
+
 }

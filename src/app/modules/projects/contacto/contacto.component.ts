@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ProjectsIds } from 'src/app/core/models/projects.model';
+import { ContactsService } from 'src/app/core/services/contacts.service';
 import { ProjectsService } from 'src/app/core/services/projects.service';
+import { UtilitiesService } from 'src/app/core/services/utilities.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,9 +15,9 @@ import { environment } from 'src/environments/environment';
 export class ContactoComponent implements OnInit {
 
   public dtOptions: DataTables.Settings = {};
-  persons: any[] = [];
+  public ListContacts: [];
 
-  
+
   public selectedItems: ProjectsIds[];
   public dropdownList: any[];
   public isAll: boolean;
@@ -24,41 +26,32 @@ export class ContactoComponent implements OnInit {
 
   public dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient, private serviceProjects: ProjectsService) {
+  constructor(private serviceProjects: ProjectsService, private serviceContacts: ContactsService, private serviceUtilities: UtilitiesService) {
   }
 
 
   ngOnInit(): void {
-    debugger;
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 2
-    };
-    this.cargarDT();
-    this.ConfigurarMultiSelect();
-    this.LoadProjectxUser();
-
-
+    this.dtOptions = this.serviceUtilities.optionsDatatable();
+    this.configurarMultiSelect();
+    this.loadDropdownList();
+    this.loadContactsByProject();
   }
 
-  cargarDT() {
-    this.httpClient.post(`${environment.urlApi}ProjectDetails/GetRegion`, '').subscribe((data: any) => {
-      this.persons = Object.assign(data['Data']);
+  loadContactsByProject() {
+    var formData = new FormData();
+    formData.append('IdConstructora', '7029');
+    formData.append('IdProyecto', '46365');
+
+    this.serviceContacts.getListContactsByProject(formData).subscribe(data => {
+      this.ListContacts = Object.assign(data['Data']);
+      console.log('ListContacts', this.ListContacts)
       this.dtTrigger.next();
-    });
+    }, error => console.log(error));
   }
-
-
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
-
-
-
-
-
-
 
   dropdownProperties() {
     let dropdown = {
@@ -89,7 +82,7 @@ export class ContactoComponent implements OnInit {
   }
 
 
-  ConfigurarMultiSelect() {
+  configurarMultiSelect() {
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'codigo',
@@ -103,8 +96,8 @@ export class ContactoComponent implements OnInit {
     };
   }
 
-  LoadProjectxUser() {
-    this.serviceProjects.getProjectxUser().subscribe(
+  loadDropdownList() {
+    this.serviceProjects.getProjectByUser().subscribe(
       data => {
         this.dropdownList = Object.assign(data['Data']);
       }, error => console.log(error));

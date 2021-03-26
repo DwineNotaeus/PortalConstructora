@@ -1,4 +1,53 @@
 export class Projects {
+    // tab-1
+    public Nombre: string;
+    public IdConstructora: number;
+    public CodigoConstructora: number;
+    public FechaEntrega: string;
+    public EstratoInmueble: number;
+
+    public CodigoRegion: number;
+    public CodigoDepartamento: number;
+    public CodigoCiudad: number;
+
+    
+    public IdCiudad: number;
+    public Direccion: string;
+
+    // tab-2
+    public TipoProyecto: string;
+    public TipoInmueble: string;
+    public Etapa_Torre: string;
+    public NumeroUnidades: number;
+    public AvaluoTipo: string;
+    public DireccionProyecto: string;
+    public Instrumentador: string;
+
+
+    // tab-3
+    public EstadoConstruccion: string;
+    public EstadoAvaluo: string;
+    public EstadoEstudioTitulos: string;
+    public EstadoFirmaEscrituras: string;
+    public EstadoBoletaRegistrada: string;
+    public EstadoEntregaVivienda: string;
+
+    // tab-4
+    public FechaAvaluo: Date;
+    public FechaEstudioTitulos: Date;
+    public FechaTipoEntregaInmueble: Date;
+    public TipoEntregaInmueble: string;
+
+}
+
+export class ProjectsIds {
+    public codigo: number;
+    public isAll: boolean;
+    public projectsCode: Array<number>;
+}
+
+
+export class searchByProject {
     public NombreProyecto: string;
     public DireccionProyecto: string;
     public IdentificacionCliente: string;
@@ -22,16 +71,20 @@ export class Projects {
     public RatificationDocumentName: string;
     public DocumentRoute: string;
     public MontoAprobado: string;
-
-    /**
-     *
-     */
-    // constructor(public RadicadoBanco: string = null) {        
-    // }
 }
 
-export class ProjectsIds {
-    public codigo: number;
-    public isAll: boolean;
-    public projectsCode: Array<number>;    
+
+
+export class contactsByProject {
+    // public IdContactos: string;
+    // public IdProyecto: string;
+    // public IdConstructora: string;
+    public IdRegion: number;
+    public NombreContacto: string;
+    public Email: string;
+    public Direccion: string;
+    public TelefonoFijo: string;
+    public Celular: string;
+    public IdTipoContacto: number;
+    // public EstadoContacto: string;
 }

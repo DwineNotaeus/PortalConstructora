@@ -36,67 +36,96 @@
     </div>
   </div>
   <div class="bs-stepper-content">
+    <form #formProjects="ngForm" novalidate autocomplete="off">
 
-    <div id="test-l-1" class="content">
+      <div id="test-l-1" class="content">
 
-      <form autocomplete="off">
+
         <div class="row">
           <div class="col-md-6">
+
             <div class="form-group">
               <label OnlyLetter>PROYECTO *</label>
-              <input class="form-control" type="text" placeholder="Campo alfanumérico" OnlyLetter="true" maxlength="51" />
+              <input class="form-control" type="text" name="Nombre" [(ngModel)]="modelProjects.Nombre"
+                placeholder="Campo alfanumérico" OnlyLetter="true" maxlength="51" />
             </div>
+
             <div class="form-group">
-              <label>CONSTRUCTORA *</label>
-              <input class="form-control" type="text" placeholder="Ingresar mínimo 5 dígitos" />
+              <label>NOMBRE CONSTRUCTORA *</label>
+              <!-- <ng-multiselect-dropdown [placeholder]="'Seleccionar'" [data]="dropdownList" [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}"
+                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                (onDeSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)">
+              </ng-multiselect-dropdown> -->
+              <select class="form-control" name="IdConstructora" [(ngModel)]="modelProjects.IdConstructora">
+                <option value="undefined" disabled selected> Seleccionar una opción</option>
+                <option *ngFor="let item of ListaConstructorasUsuario" [value]="item.idConstructora"> {{item.Nombre}}
+                </option>
+              </select>
             </div>
+
             <div class="form-group">
               <label>FECHA ENTREGA INMUEBLE</label>
-              <input class="form-control" type="date" placeholder="Seleccionar fecha" />
+              <input class="form-control" type="date" name="FechaEntrega" [(ngModel)]="modelProjects.FechaEntrega"
+                placeholder="Seleccionar fecha" />
             </div>
+
             <div class="form-group">
               <label OnlyNumber>ESTRATO INMUEBLE</label>
-              <input class="form-control" type="text" placeholder="Campo númerico" OnlyNumber="true"/>
+              <input class="form-control" type="text" name="EstratoInmueble" [(ngModel)]="modelProjects.EstratoInmueble"
+                placeholder="Campo númerico" OnlyNumber="true" />
             </div>
           </div>
+
           <div class="col-md-6">
             <div class="form-group">
               <label>REGIÓN *</label>
-              <select class="form-control">
-                <option value="" disabled selected> Seleccionar una opción</option>
+              <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedRegion.Id"
+                (ngModelChange)="changeRegion()">
+                <option value="undefined" disabled selected> Seleccionar una opción</option>
+                <option *ngFor="let item of ListRegions" [value]="item.idRegion">
+                  {{item.Nombre}}
+                </option>
               </select>
             </div>
             <div class="form-group">
               <label>DEPARTAMENTO *</label>
-              <select class="form-control">
-                <option value="" disabled selected> Seleccionar una opción</option>
+              <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDepartament.Id"
+                (ngModelChange)="changeDepartament()">
+                <option value="undefined" disabled selected> Seleccionar una opción</option>
+                <option *ngFor="let item of ListDepartaments" [value]="item.idDepartamento">
+                  {{item.Nombre}}
+                </option>
               </select>
             </div>
             <div class="form-group">
               <label>CIUDAD *</label>
-              <select class="form-control">
-                <option value="" disabled selected> Seleccionar una opción</option>
+              <select class="form-control" name="IdCiudad" [(ngModel)]="modelProjects.IdCiudad">
+                <option value="undefined" disabled selected> Seleccionar una opción</option>
+                <option *ngFor="let item of ListCity" value="{{item.idCiudad}}">
+                  {{item.Nombre}}
+                </option>
               </select>
             </div>
             <div class="form-group">
               <label>DIRECCIÓN *</label>
-              <input class="form-control" type="text" placeholder="Ingrese dirección" maxlength="51" />
+              <input class="form-control" type="text" name="Direccion" [(ngModel)]="modelProjects.Direccion"
+                placeholder="Ingrese dirección" maxlength="51" />
             </div>
           </div>
         </div>
-      </form>
 
-    </div>
 
-    <div id="test-l-2" class="content">
+      </div>
 
-      <form>
+      <div id="test-l-2" class="content">
+
+
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label>TIPO DE PROYECTO *</label>
-              <select class="form-control">
-                <option value="" disabled selected> Seleccionar una opción</option>
+              <select class="form-control" name="TipoProyecto" [(ngModel)]="modelProjects.TipoProyecto">
+                <option value="undefined" disabled selected> Seleccionar una opción</option>
                 <option value="VIP">VIP</option>
                 <option value="VIS">VIS</option>
                 <option value="MIXTO">MIXTO</option>
@@ -104,7 +133,7 @@
             </div>
             <div class="form-group">
               <label>TIPO DE INMUEBLE *</label>
-              <select class="form-control">
+              <select class="form-control" name="TipoInmueble" [(ngModel)]="modelProjects.TipoInmueble">
                 <option value="" disabled selected> Seleccionar una opción</option>
                 <option value="VIVIENDA">VIVIENDA</option>
                 <option value="LOCAL">LOCAL</option>
@@ -115,25 +144,27 @@
             </div>
             <div class="form-group">
               <label>ETAPA/TORRE</label>
-              <input class="form-control" type="text" placeholder="Ingrese etapa/torre" maxlength="31" />
+              <input class="form-control" type="text" name="Etapa_Torre" [(ngModel)]="modelProjects.Etapa_Torre"
+                placeholder="Ingrese etapa/torre" maxlength="31" />
             </div>
             <div class="form-group">
               <label>NÚMERO DE UNIDADES</label>
-              <input class="form-control" type="text" placeholder="Campo númerico" maxlength="3" />
+              <input class="form-control" type="text" name="NumeroUnidades" [(ngModel)]="modelProjects.NumeroUnidades"
+                placeholder="Campo númerico" maxlength="3" />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label>AVALÚO TIPO *</label>
-              <select class="form-control">
+              <select class="form-control" name="AvaluoTipo" [(ngModel)]="modelProjects.AvaluoTipo">
                 <option value="" disabled selected> Seleccionar una opción</option>
                 <option value="SI">SÍ</option>
                 <option value="NO">NO</option>
               </select>
             </div>
             <div class="form-group">
-              <label>DIRECCIÓN DEL PROYECTO*</label>
-              <select class="form-control">
+              <label>DIRECCIÓN DEL PROYECTO *</label>
+              <select class="form-control" name="DireccionProyecto" [(ngModel)]="modelProjects.DireccionProyecto">
                 <option value="" disabled selected> Seleccionar una opción</option>
                 <option value="FINANCIADO">FINANCIADO</option>
                 <option value="GERENCIADO">GERENCIADO</option>
@@ -142,23 +173,23 @@
             </div>
             <div class="form-group">
               <label>INSTRUMENTADOR *</label>
-              <input class="form-control" type="text" placeholder="Campo alfanumérico" maxlength="50" />
+              <input class="form-control" type="text" name="Instrumentador" [(ngModel)]="modelProjects.Instrumentador"
+                placeholder="Campo alfanumérico" maxlength="50" />
             </div>
           </div>
         </div>
-      </form>
-
-    </div>
 
 
-    <div id="test-l-3" class="content">
+      </div>
 
-      <form>
+      <div id="test-l-3" class="content">
+
+
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label>ESTADO CONSTRUCCIÓN *</label>
-              <select class="form-control">
+              <select class="form-control" name="EstadoConstruccion" [(ngModel)]="modelProjects.EstadoConstruccion">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="EN PROCESO">EN PROCESO</option>
                 <option value="TERMINADO">TERMINADO</option>
@@ -166,7 +197,7 @@
             </div>
             <div class="form-group">
               <label>ESTADO AVALÚO *</label>
-              <select class="form-control">
+              <select class="form-control" name="EstadoAvaluo" [(ngModel)]="modelProjects.EstadoAvaluo">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="PENDIENTE">PENDIENTE</option>
                 <option value="ASIGNADO">ASIGNADO</option>
@@ -176,7 +207,7 @@
             </div>
             <div class="form-group">
               <label>ESTADO ESTUDIO DE TÍTULOS *</label>
-              <select class="form-control">
+              <select class="form-control" name="EstadoEstudioTitulos" [(ngModel)]="modelProjects.EstadoEstudioTitulos">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="PENDIENTE">PENDIENTE</option>
                 <option value="ASIGNADO">ASIGNADO</option>
@@ -186,7 +217,7 @@
             </div>
             <div class="form-group">
               <label>ESTADO FIRMA DE ESCRITURAS *</label>
-              <select class="form-control">
+              <select class="form-control" name="EstadoFirmaEscrituras" [(ngModel)]="modelProjects.EstadoFirmaEscrituras">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="PENDIENTE">PENDIENTE</option>
                 <option value="FIRMA OK">FIRMA OK</option>
@@ -197,7 +228,7 @@
 
             <div class="form-group">
               <label>ESTADO BOLETA REGISTRADA *</label>
-              <select class="form-control">
+              <select class="form-control" name="EstadoBoletaRegistrada" [(ngModel)]="modelProjects.EstadoBoletaRegistrada">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="PENDIENTE">PENDIENTE</option>
                 <option value="ENTREGADA">ENTREGADA</option>
@@ -205,7 +236,7 @@
             </div>
             <div class="form-group">
               <label>ESTADO ENTREGA VIVIENDA *</label>
-              <select class="form-control">
+              <select class="form-control" name="EstadoEntregaVivienda" [(ngModel)]="modelProjects.EstadoEntregaVivienda">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="AGENDADA">AGENDADA</option>
                 <option value="ENTREGADA">ENTREGADA</option>
@@ -213,34 +244,33 @@
             </div>
           </div>
         </div>
-      </form>
-
-    </div>
 
 
-    <div id="test-l-4" class="content">
+      </div>
 
-      <form>
+      <div id="test-l-4" class="content">
+
+
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label>AVALÚO *</label>
-              <input class="form-control" type="date" />
+              <input class="form-control" type="date" name="FechaAvaluo" [(ngModel)]="modelProjects.FechaAvaluo" />
             </div>
 
             <div class="form-group">
               <label>ESTUDIO DE TÍTULOS *</label>
-              <input class="form-control" type="date" />
+              <input class="form-control" type="date" name="FechaEstudioTitulos" [(ngModel)]="modelProjects.FechaEstudioTitulos"/>
             </div>
 
             <div class="form-group">
               <label>FECHA TIPO ENTREGA INMUEBLE *</label>
-              <input class="form-control" type="date" />
+              <input class="form-control" type="date" name="FechaTipoEntregaInmueble" [(ngModel)]="modelProjects.FechaTipoEntregaInmueble" />
             </div>
 
             <div class="form-group">
               <label>TIPO ENTREGA INMUEBLE *</label>
-              <select class="form-control">
+              <select class="form-control" name="TipoEntregaInmueble" [(ngModel)]="modelProjects.TipoEntregaInmueble">
                 <option value="" disabled selected> Seleccionar una opción </option>
                 <option value="BOLETA REGISTRADA">BOLETA REGISTRADA</option>
                 <option value="FIRMA DE ESCRITURAS">FIRMA DE ESCRITURAS</option>
@@ -252,62 +282,65 @@
 
           </div>
         </div>
-      </form>
-
-    </div>
 
 
+      </div>
 
-    <div id="test-l-5" class="content">
+      <div id="test-l-5" class="content">
 
-      <form>
+
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label>NOMBRE CONTACTO *</label>
-              <input class="form-control" type="text" placeholder="Campo alfanúmerico" maxlength="51" />
+              <input class="form-control" type="text" name="NombreContacto" [(ngModel)]="modelContactsByProject.NombreContacto" placeholder="Campo alfanúmerico" maxlength="51" />
             </div>
 
             <div class="form-group">
               <label>REGIÓN *</label>
-              <select class="form-control">
-                <option value="" disabled selected> Seleccionar una opción </option>
+              <select class="form-control" name="IdRegion" [(ngModel)]="modelContactsByProject.IdRegion">
+                <option value="undefined" disabled selected> Seleccionar una opción </option>
+                <option *ngFor="let item of ListRegions" [value]="item.idRegion">
+                  {{item.Nombre}}
+                </option>
               </select>
             </div>
 
             <div class="form-group">
               <label>E-MAIL *</label>
-              <input class="form-control" type="text" placeholder="Ingrese correo electrónico válido" maxlength="51" />
+              <input class="form-control" type="text" name="Email" [(ngModel)]="modelContactsByProject.Email" placeholder="Ingrese correo electrónico válido" maxlength="51" />
             </div>
 
             <div class="form-group">
               <label>DIRECCIÓN *</label>
-              <input class="form-control" type="text" placeholder="Campo alfanúmerico" maxlength="51" />
+              <input class="form-control" type="text" name="Direccion" [(ngModel)]="modelContactsByProject.Direccion" placeholder="Campo alfanúmerico" maxlength="51" />
             </div>
           </div>
 
           <div class="col-md-6">
             <div class="form-group">
               <label>TIPO DE CONTACTO *</label>
-              <select id="cmbTipoContacto" class="form-control">
-                <option value="" disabled selected> Seleccionar una opción
-                </option>
+              <select class="form-control" name="IdTipoContacto" [(ngModel)]="modelContactsByProject.IdTipoContacto">
+                <option value="" disabled selected> Seleccionar una opción </option>
+                <option value="1">TRAMITADOR</option>
+                <option value="2">ABOGADO</option>
+                <option value="3">PERITO</option>
               </select>
             </div>
 
             <div class="form-group">
               <label>TELÉFONO FIJO *</label>
-              <input class="form-control" type="text" placeholder="Ingresar solo números" maxlength="8" />
+              <input class="form-control" type="text" name="TelefonoFijo" [(ngModel)]="modelContactsByProject.TelefonoFijo" placeholder="Ingresar solo números" maxlength="8" />
             </div>
 
             <div class="form-group">
               <label>CELULAR *</label>
-              <input class="form-control" type="text" placeholder="Ingresar solo números" maxlength="11" />
+              <input class="form-control" type="text" name="Celular" [(ngModel)]="modelContactsByProject.Celular" placeholder="Ingresar solo números" maxlength="11" />
             </div>
 
 
 
-            <button type="submit" class="btn btn-primary col-md-6 btn-register">
+            <button type="submit" class="btn btn-primary col-md-6 btn-register" (click)="onSubmit(formProjects)">
 
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -323,19 +356,22 @@
 
           </div>
         </div>
-      </form>
 
-    </div>
 
-    <div class="input-group input-group-location">
-      <hr>
-      <div class="input-group-append" id="button-addon4">
-        <button (click)="previous()" class="btn btn-outline-secondary">Previous</button>
-        <button (click)="next()" class="btn btn-outline-secondary">Next</button>
       </div>
-    </div>
 
 
 
+      <div class="input-group input-group-location">
+        <hr>
+        <div class="input-group-append" id="button-addon4">
+          <button (click)="previous()" class="btn btn-outline-secondary">ANTERIOR</button>
+          <button (click)="next()" class="btn btn-outline-secondary">SIGUIENTE</button>
+        </div>
+      </div>
+
+
+    </form>
+    {{ formProjects.value | json }}
   </div>
 </div>

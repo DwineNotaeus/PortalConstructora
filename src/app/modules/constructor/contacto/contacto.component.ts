@@ -26,7 +26,7 @@ export class ContactoComponent implements OnInit {
   }
 
   cargarDT() {
-    this.httpClient.post(`${environment.urlApi}ProjectDetails/GetRegion`, '').subscribe((data: any) => {
+    this.httpClient.get(`${environment.urlApi}ProjectDetails/GetRegion`).subscribe((data: any) => {
       this.persons = Object.assign(data['Data']);
       this.dtTrigger.next();
     });

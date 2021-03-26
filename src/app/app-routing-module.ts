@@ -5,6 +5,7 @@ import { LoginGuard } from "./core/guards/login.guard";
 import { LayoutComponent } from "./layout/layout.component";
 import { LoginComponent } from "./modules/authentication/login/login.component";
 import { BulkLoadComponent } from "./modules/bulk-load/bulk-load.component";
+import { ContactsComponent } from "./modules/contacts/contacts.component";
 import { SearchByDocumentComponent } from "./modules/search-by-document/search-by-document.component";
 import { SearchByProjectsComponent } from "./modules/search-by-projects/search-by-projects.component";
 
@@ -39,6 +40,10 @@ const routes: Routes = [
             },
             {
                 path: "CargaMasiva", component: BulkLoadComponent
+            },
+            {
+                path: "Contactos", 
+                loadChildren: () =>import("./modules/contacts/contacts.module").then((m) => m.ContactsModule)
             }
         ]
     },

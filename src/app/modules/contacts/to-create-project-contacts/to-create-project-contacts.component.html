@@ -1,0 +1,95 @@
+<div class="container-fluid container-main">
+
+  <h4>Módulo :: Crear Contacto Proyecto</h4>
+  <p class="text-danger">Los campos marcados con asterisco (*) son requeridos.</p>
+  <hr />
+
+  <form>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label>NOMBRE CONSTRUCTORA *</label>
+          <ng-multiselect-dropdown [placeholder]="'Seleccionar'" [data]="dropdownListConstructor" [(ngModel)]="selectedItemsConstructor" [ngModelOptions]="{standalone: true}"
+            [settings]="dropdownConstructorSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+            (onDeSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)">
+          </ng-multiselect-dropdown>
+        </div>
+
+        <div class="form-group">
+          <label>NOMBRE PROYECTO *</label>
+          <ng-multiselect-dropdown [placeholder]="'Seleccionar'" [data]="dropdownListProjects" [(ngModel)]="selectedItemsProjects" [ngModelOptions]="{standalone: true}" 
+            [settings]="dropdownProjectSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+            (onDeSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)">
+          </ng-multiselect-dropdown>
+        </div>
+
+        <div class="form-group">
+          <label>REGIÓN *</label>
+          <select class="form-control">
+            <option [ngValue]="undefined" disabled selected> Seleccionar una opción </option>
+            <!-- <option *ngFor="let item of ListaRegiones" [ngValue]="item">{{item.Nombre}}</option> -->
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label>NOMBRE CONTACTO *</label>
+          <input type="text" class="form-control" placeholder="Campo alfanúmerico" />
+        </div>
+
+        <div class="form-group">
+          <label>E-MAIL *</label>
+          <input type="text" class="form-control" placeholder="Ingrese correo electrónico válido" />
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label>TIPO DE CONTACTO *</label>
+          <select class="form-control">
+            <option value="" disabled selected> Seleccionar una opción </option>
+            <option value="1">TRAMITADOR</option>
+            <option value="2">ABOGADO</option>
+            <option value="3">PERITO</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>DIRECCIÓN *</label>
+          <input type="text" class="form-control" placeholder="Campo alfanúmerico" />
+        </div>
+
+
+        <div class="form-group">
+          <label>TELÉFONO FIJO *</label>
+          <input type="text" class="form-control" placeholder="Ingresar solo números" />
+        </div>
+
+        <div class="form-group">
+          <label>CELULAR *</label>
+          <input type="text" class="form-control" placeholder="Ingresar solo números" />
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary col-md-6 btn-register">
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+          </svg>
+
+          Registrar
+
+        </button>
+
+      </div>
+    </div>
+  </form>
+
+</div>

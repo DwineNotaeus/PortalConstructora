@@ -10,14 +10,17 @@ export class UtilitiesService {
 
   constructor(private _http: HttpClient) { }
 
-  getBase64FromUrl(data: FormData) {    
+  getBase64FromUrl(data: FormData) {
     return this._http.post(`${environment.urlApi}ProjectDetails/GetBase64FromUrl`, data);
   }
 
-  optionsDatatable(){
+  optionsDatatable() {
     return this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2,
+      pageLength: 5,
+      paging: false,
+      searching: false,
+      // lengthChange: false,
       language: { url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json' }
     };
   }

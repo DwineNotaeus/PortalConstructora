@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { FileUtilities } from 'src/app/core/models/file-utilities';
-import { Projects, ProjectsIds } from 'src/app/core/models/projects.model';
+import { Projects, ProjectsIds, searchByProject } from 'src/app/core/models/projects.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProjectsService } from 'src/app/core/services/projects.service';
 import { UtilitiesService } from 'src/app/core/services/utilities.service';
@@ -19,16 +19,16 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
   public showFilter = true;
   public dropdownSettings = {};
   public dropdownList: any[];
-  public LstProjectsxUser: Projects[];
+  public LstProjectsxUser: any[];
   public LstCodigoProyectos = [];
   public selectedItems: ProjectsIds[];
 
-  public ProjectsModel: Projects;
+  public ProjectsModel: searchByProject;
   public roleId: number;
   public rutaimagen: string = "";
   private fileup: FileUtilities;
 
-
+  public uploadedFiles: Array<File>;
 
 
   public dtOptions: any = {};
@@ -38,14 +38,36 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
   dtElement: DataTableDirective;
 
   constructor(private serviceAuth: AuthService, private serviceProjects: ProjectsService, private serviceUtilities: UtilitiesService) {
-    this.ProjectsModel = new Projects();
+    this.ProjectsModel = new searchByProject();
   }
 
   ngOnInit(): void {
-    this.ConfigurarMultiSelect();
-    this.LoadProjectxUser();
+    this.configurarMultiSelect();
+    this.loadDropdownList();
     this.optionsDatatable();
 
+  }
+
+  onUpload() {
+
+    let formData = new FormData();
+
+    for (let index = 0; index < this.uploadedFiles.length; index++) {
+      formData.append("uploads[]", this.uploadedFiles[index], this.uploadedFiles[index].name);
+    }
+
+    this.serviceProjects.saveDocument(formData).subscribe(data => {
+      console.log('Response', data)
+    },
+      error => { console.log(error); }
+    );
+
+  }
+
+  onFileChange(e) {
+    this.uploadedFiles = e.target.files;
+
+    console.log('onFileChange', e);
   }
 
   optionsDatatable() {
@@ -61,9 +83,10 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
     };
   }
 
-  ConfigurarMultiSelect() {
+  configurarMultiSelect() {
     this.dropdownSettings = {
       singleSelection: false,
+      defaultOpen: false,
       idField: 'codigo',
       textField: 'nombre',
       selectAllText: 'Seleccionar Todo',
@@ -75,14 +98,14 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
     };
   }
 
-  LoadProjectxUser() {
-    this.serviceProjects.getProjectxUser().subscribe(
+  loadDropdownList() {
+    this.serviceProjects.getProjectByUser().subscribe(
       data => {
         this.dropdownList = Object.assign(data['Data']);
       }, error => console.log(error));
   }
 
-  ConsultProjectsByUser() {
+  consultProjectsByUser() {
 
     this.LstCodigoProyectos = [];
     let search = this.dropdownProperties();
@@ -97,7 +120,7 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
         // Destroy the table first
         dtInstance.destroy();
 
-        this.serviceProjects.getProjectsByUser(this.LstCodigoProyectos, this.isAll).subscribe(response => {
+        this.serviceProjects.getListProjectsByUser(this.LstCodigoProyectos, this.isAll).subscribe(response => {
           this.LstProjectsxUser = Object.assign(response['Data']);
           console.log('LstProjectsxUser', this.LstProjectsxUser);
           this.dtTrigger.next();
@@ -109,7 +132,7 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
 
-  gridDetailsProject(item: Projects) {
+  gridDetailsProject(item: searchByProject) {
     debugger;
     console.log('item', item)
     this.ProjectsModel.RadicadoBanco = item.RadicadoBanco;
@@ -127,8 +150,8 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
 
   }
 
-  openFileUploadDiolog(docType: string, projectsModel: Projects, status: string, docName: string) {
-alert('ok');
+  openFileUploadDiolog(docType: string, projectsModel: searchByProject, status: string, docName: string) {
+    alert('ok');
     debugger;
 
     if (this.roleId == 1 || this.roleId == 2 || this.roleId == 4) {
