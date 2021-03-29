@@ -29,10 +29,6 @@ export class ProjectsService {
     return this._http.post(`${environment.urlApi}ProjectDetails/GetClientForCunstructor`, body, { 'headers': headers });
   }
 
-  getAllProjects(): Observable<Projects> {
-    return this._http.get<Projects>(`${environment.urlApi}ProjectDetails/GetAllProjectsForUser`);
-  }
-
   createProject(proyecto: Projects, contacto: contactsByProject): Observable<any> {
     const headers = { 'content-type': 'application/json' }
     const body = { proyecto, contacto }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ProjectsIds } from 'src/app/core/models/projects.model';
 import { ConstructorService } from 'src/app/core/services/constructor.service';
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './to-update-project-contacts.component.html',
   styleUrls: ['./to-update-project-contacts.component.css']
 })
-export class ToUpdateProjectContactsComponent implements OnInit {
+export class ToUpdateProjectContactsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public isAll: boolean;
   public showFilter = true;
@@ -29,6 +30,9 @@ export class ToUpdateProjectContactsComponent implements OnInit {
   public dtTrigger: Subject<any> = new Subject<any>();
   public showDatagrid: boolean = false;
 
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+
   constructor(private serviceProjects: ProjectsService, private serviceConstructor: ConstructorService, private serviceContacts: ContactsService, private serviceUtilities: UtilitiesService) { }
 
   ngOnInit(): void {
@@ -41,7 +45,17 @@ export class ToUpdateProjectContactsComponent implements OnInit {
 
   }
 
-  configurarMultiSelectConstructor(){
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+
+  configurarMultiSelectConstructor() {
     this.dropdownConstructorSettings = {
       singleSelection: true,
       idField: 'idConstructora',
@@ -87,25 +101,27 @@ export class ToUpdateProjectContactsComponent implements OnInit {
 
     console.log(inputSearch.controls['inputSearchConstructor'].value);
     console.log(inputSearch.controls['inputSearchProjects'].value);
-    // if (inputSearch.controls['inputSearch'].value !== undefined) {
-    //   let idConstructora = inputSearch.controls['inputSearch'].value[0].idProyectoVivienda;
-    //   this.showDatagrid = true;
+    if (inputSearch.controls['inputSearchConstructor'].value !== undefined && inputSearch.controls['inputSearchProjects'].value !== undefined) {
+      let idConstructora = inputSearch.controls['inputSearchConstructor'].value[0].idConstructora;
+      let idProyecto = inputSearch.controls['inputSearchProjects'].value[0].codigo;
+      this.showDatagrid = true;
 
-    //   var formData = new FormData();
-    //   formData.append('IdConstructora', idConstructora)
+      var formData = new FormData();
+      formData.append('IdConstructora', idConstructora)
+      formData.append('IdProyecto', idProyecto)
 
-    //   this.serviceContacts.getListContacts(formData).subscribe(data => {
-    //     this.ListContacts = Object.assign(data['Data']);
-    //     this.dtTrigger.next();
-    //   }, error => console.log(error));
+      this.serviceContacts.getListContactsByProject(formData).subscribe(data => {
+        this.ListContacts = Object.assign(data['Data']);
+        this.dtTrigger.next();
+      }, error => console.log(error));
 
-    // }else{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: 'You are not authorised to visit this page!',
-    //   });
-    // }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You are not authorised to visit this page!',
+      });
+    }
   }
 
 
@@ -126,7 +142,7 @@ export class ToUpdateProjectContactsComponent implements OnInit {
     var filterArray = [];
     filterArray.push(selectedValue);
     console.log('selectedValue', selectedValue.idConstructora);
-    
+
     // Metodo opcional para carga en cascada después de validar con el funcional
     // this.serviceProjects.getProjectByUser().subscribe(
     //   data => {

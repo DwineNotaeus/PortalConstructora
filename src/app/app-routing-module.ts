@@ -1,11 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ConsultasIQGuard } from "./core/guards/consultas-iq.guard";
 import { LoginGuard } from "./core/guards/login.guard";
 import { LayoutComponent } from "./layout/layout.component";
 import { LoginComponent } from "./modules/authentication/login/login.component";
 import { BulkLoadComponent } from "./modules/bulk-load/bulk-load.component";
-import { ContactsComponent } from "./modules/contacts/contacts.component";
 import { SearchByDocumentComponent } from "./modules/search-by-document/search-by-document.component";
 import { SearchByProjectsComponent } from "./modules/search-by-projects/search-by-projects.component";
 
