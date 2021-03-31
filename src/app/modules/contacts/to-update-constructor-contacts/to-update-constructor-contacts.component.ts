@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ConstructorService } from 'src/app/core/services/constructor.service';
 import { ContactsService } from 'src/app/core/services/contacts.service';
@@ -11,7 +12,11 @@ import Swal from 'sweetalert2';
   templateUrl: './to-update-constructor-contacts.component.html',
   styleUrls: ['./to-update-constructor-contacts.component.css']
 })
-export class ToUpdateConstructorContactsComponent implements OnInit {
+export class ToUpdateConstructorContactsComponent implements AfterViewInit, OnDestroy, OnInit {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  public dtOptions: DataTables.Settings = {};
+  public dtTrigger: Subject<any> = new Subject<any>();
 
   public dropdownSettings = {};
   public showFilter = true;
@@ -20,18 +25,29 @@ export class ToUpdateConstructorContactsComponent implements OnInit {
   public selectedItems: any[];
 
 
-  public ListContacts: [];
-  public dtOptions: DataTables.Settings = {};
-  public dtTrigger: Subject<any> = new Subject<any>();
-
+  public ListContacts: any[];
   public showDatagrid: boolean = false;
 
   constructor(private serviceConstructor: ConstructorService, private serviceContacts: ContactsService, private serviceUtilities: UtilitiesService) { }
 
   ngOnInit(): void {
-    this.dtOptions = this.serviceUtilities.optionsDatatable();
+    // this.dtOptions = this.serviceUtilities.optionsDatatable();    
     this.configurarMultiSelect();
     this.loadDropdownList();
+    this.optionsDatatable();
+  }
+
+  optionsDatatable() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      // serverSide: true,
+      // processing: true
+      // paging: true,
+      // searching: false,
+      // destroy: true,
+      lengthChange: false
+    };
   }
 
   configurarMultiSelect() {
@@ -83,20 +99,35 @@ export class ToUpdateConstructorContactsComponent implements OnInit {
       this.showDatagrid = true;
 
       var formData = new FormData();
-      formData.append('IdConstructora', idConstructora)
+      formData.append('IdConstructora', idConstructora);
 
-      this.serviceContacts.getListContacts(formData).subscribe(data => {
-        this.ListContacts = Object.assign(data['Data']);
-        this.dtTrigger.next();
-      }, error => console.log(error));
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
 
-    }else{
+        this.serviceContacts.getListContacts(formData).subscribe(data => {
+          this.ListContacts = Object.assign(data['Data']);
+          this.dtTrigger.next();
+        }, error => console.log(error));
+
+      });
+
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'You are not authorised to visit this page!',
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
 

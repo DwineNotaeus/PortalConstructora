@@ -44,6 +44,7 @@
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
       <thead>
         <tr>
+          <th>RADICADO</th>
           <th>CÉDULA CLIENTE</th>
           <th>NOMBRE COMPLETO</th>
           <th>TIPO PRODUCTO</th>
@@ -55,6 +56,7 @@
       </thead>
       <tbody *ngIf="LstProjectsxUser?.length != 0">
         <tr *ngFor="let item of LstProjectsxUser">
+          <td>{{item.RadicadoBanco}}</td>
           <td>{{item.IdentificacionCliente}}</td>
           <td>{{item.NombreCliente}}</td>
           <td>{{item.TipoProducto}}</td>

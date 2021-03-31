@@ -47,7 +47,7 @@
 
 
   <!-- DataGrid -->
-  <div class="inner-container dt-container" *ngIf="showDatagrid">
+  <div class="inner-container dt-container" [hidden]="!showDatagrid">
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
       <thead>
         <tr>

@@ -73,7 +73,7 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
   optionsDatatable() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5,
+      pageLength: 7,
       // serverSide: true,
       // processing: true
       // paging: true,

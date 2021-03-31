@@ -14,7 +14,11 @@ import Swal from 'sweetalert2';
   templateUrl: './to-update-project-contacts.component.html',
   styleUrls: ['./to-update-project-contacts.component.css']
 })
-export class ToUpdateProjectContactsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ToUpdateProjectContactsComponent implements AfterViewInit, OnDestroy, OnInit {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  public dtOptions: DataTables.Settings = {};
+  public dtTrigger: Subject<any> = new Subject<any>();
 
   public isAll: boolean;
   public showFilter = true;
@@ -25,33 +29,34 @@ export class ToUpdateProjectContactsComponent implements OnInit, OnDestroy, Afte
   public selectedItemsConstructor: any[];
   public selectedItemsProjects: ProjectsIds[];
 
-  public ListContacts: [];
-  public dtOptions: DataTables.Settings = {};
-  public dtTrigger: Subject<any> = new Subject<any>();
+  public ListContacts: any[];
   public showDatagrid: boolean = false;
-
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
 
   constructor(private serviceProjects: ProjectsService, private serviceConstructor: ConstructorService, private serviceContacts: ContactsService, private serviceUtilities: UtilitiesService) { }
 
   ngOnInit(): void {
-    this.dtOptions = this.serviceUtilities.optionsDatatable();
+    // this.dtOptions = this.serviceUtilities.optionsDatatable();
 
     this.configurarMultiSelectConstructor();
     this.configurarMultiSelectProjects();
     this.loadDropdownListConstructor();
     this.loadDropdownListProject();
 
+    this.optionsDatatable();
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
 
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
+  optionsDatatable() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      // serverSide: true,
+      // processing: true
+      // paging: true,
+      // searching: false,
+      // destroy: true,
+      lengthChange: false
+    };
   }
 
 
@@ -99,6 +104,8 @@ export class ToUpdateProjectContactsComponent implements OnInit, OnDestroy, Afte
 
   onSubmit(inputSearch: NgForm) {
 
+    debugger;
+
     console.log(inputSearch.controls['inputSearchConstructor'].value);
     console.log(inputSearch.controls['inputSearchProjects'].value);
     if (inputSearch.controls['inputSearchConstructor'].value !== undefined && inputSearch.controls['inputSearchProjects'].value !== undefined) {
@@ -110,10 +117,16 @@ export class ToUpdateProjectContactsComponent implements OnInit, OnDestroy, Afte
       formData.append('IdConstructora', idConstructora)
       formData.append('IdProyecto', idProyecto)
 
-      this.serviceContacts.getListContactsByProject(formData).subscribe(data => {
-        this.ListContacts = Object.assign(data['Data']);
-        this.dtTrigger.next();
-      }, error => console.log(error));
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+
+        this.serviceContacts.getListContactsByProject(formData).subscribe(data => {
+          this.ListContacts = Object.assign(data['Data']);
+          this.dtTrigger.next();
+        }, error => console.log(error));
+
+      });
 
     } else {
       Swal.fire({
@@ -122,6 +135,16 @@ export class ToUpdateProjectContactsComponent implements OnInit, OnDestroy, Afte
         text: 'You are not authorised to visit this page!',
       });
     }
+  }
+
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
 
