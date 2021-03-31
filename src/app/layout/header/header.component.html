@@ -1,23 +1,94 @@
-<nav class="navbar navbar-dark nav-color">
-  <a class="navbar-brand">
-    <div class="companyLogo"><img src="../../../assets/img/logo-bancolombia.png" alt="Bienvenidos a grupobancolombia" /></div>
-  </a>
+<div class="wrapper">
+  <!-- Sidebar Holder -->
+  <nav id="sidebar">
+      <div class="sidebar-header">
+        <img class="logoEntidad" src="../../../../assets/img/logo-bancolombiaCombinado.png" id="icon" alt="User Icon" />
+      </div>
 
-  <div class="dropdown">
+      <div *ngFor="let elemento of MenuItem; let i = index ">
+
+        <nav class="nav-list">
+      
+      
+      
+          <ul class="ul-list">
+      
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="[elemento.RutaUrl]"
+                *ngIf="elemento.Funcionalidades.length == 0">{{ elemento.Modulo }}</a>
+            </li>
+
+            <!-- <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" data-target="#submenu" *ngIf="elemento.Funcionalidades.length != 0" (click)="expandDynamicMenu(elemento)">{{ elemento.Modulo}}</a>
+              <div *ngIf="elemento.expanded">
+                <ul id="submenu" class="nav-list collapse" *ngFor="let item of elemento.Funcionalidades">
+                  <li><a [routerLink]="[elemento.RutaUrl, item.UrlFuncionalidad]">{{ item.NombreFuncionalidad }}</a></li>
+                </ul>
+              </div>
+            </li> -->
+      
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" [attr.data-target]="'#details-'+ elemento.IdModulo"
+                *ngIf="elemento.Funcionalidades.length != 0">{{ elemento.Modulo}}</a>
+      
+              <ul id="details-{{elemento.IdModulo}}" class="nav-list collapse" *ngFor="let item of elemento.Funcionalidades">
+                <li><a [routerLink]="[elemento.RutaUrl, item.UrlFuncionalidad]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
+                </svg> {{ item.NombreFuncionalidad }}</a></li>
+              </ul>
+      
+            </li>
+      
+          </ul>
+      
+        </nav>
+      
+      </div>
+
+  </nav>
+
+  <!-- Page Content Holder -->
+  <div id="content">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+              <button type="button" id="sidebarCollapse" class="navbar-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </button>
+              <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <i class="fas fa-align-justify"></i>
+              </button>
+
+              <div class="dropdown">
     
-    <div class="container">
-      <li class="nav-item dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-          </svg> {{ userName }}!
-        </button>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Cerrar sesión</a>
-            </div>
-          </li>
-    </div>
+                <div class="container">
+                  <li class="nav-item dropdown">
+                    <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      </svg> {{ userName }}!
+                    </button>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" href="#">Cerrar sesión</a>
+                        </div>
+                      </li>
+                </div>
+              </div>
+
+          </div>
+      </nav>
+      
+
+
+      <router-outlet></router-outlet>
+
+
+
+      
   </div>
+</div>
 
 
-</nav>

@@ -26,6 +26,14 @@ export class LayoutComponent implements OnInit {
     // });
     this.onResize();
     debugger;
+
+
+
+
+
+
+
+
     // this.isLoggedIn();    
   }
 

@@ -79,7 +79,8 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
       // paging: true,
       // searching: false,
       // destroy: true,
-      lengthChange: false
+      lengthChange: false,
+      language: { url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json' }
     };
   }
 

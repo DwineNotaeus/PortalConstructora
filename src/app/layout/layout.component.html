@@ -2,18 +2,17 @@
 
   <body>
 
-
+    <app-header></app-header>
 
     <!-- top navbar-->
 
-    <div class="container-fluid">
+    <!-- <div class="container"> -->
 
 
-      <app-header></app-header>
 
-    </div>
+
+    <!-- </div> -->
     <!-- sidebar-->
-
 
 
 
@@ -27,17 +26,18 @@
       </div> -->
 
 
-    <div class="container-fluid">
+    <!-- <div class="wrapper">
+      
 
-      <div class="row">
-        <div id="wrapper" class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="background-color:rgba(0, 0, 0, 0.678);">
-          <app-sidebar></app-sidebar>
-        </div>
-        <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
-          <router-outlet></router-outlet>
-        </div>
+      <div id="sidebar">
+        <app-header></app-header>
+        <app-sidebar></app-sidebar>
       </div>
-    </div>
+      <div id="content">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div> -->
 
 
 
@@ -48,3 +48,6 @@
 
   </body>
 </div>
+
+
+
