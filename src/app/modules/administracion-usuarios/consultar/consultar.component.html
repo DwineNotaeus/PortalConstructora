@@ -1,26 +1,25 @@
-<div class="container-fluid">
+<div class="container-fluid container-main">
+  <h4>Módulo Listar :: Administración usuario</h4>
+  <p class="text-danger">Los campos marcados con asterisco (*) son requeridos.</p>
+  <hr />
+  <form #formSearchUserName="ngForm" (ngSubmit)="onSubmit(formSearchUserName)">
     <div class="row">
-      <hr>
-    </div>
-    <div class="inner-container">
-  
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-       class="table table-bordered row-border hover">
-        <thead>
-          <tr>
-            <th>CÓDIGO</th>
-            <th>DESCRIPCIÓN</th>
-            <th>SELECCIONAR</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let person of persons">
-            <td>{{ person.idRegion }}</td>
-            <td>{{ person.Nombre }}</td>
-            <td><button class="btn btn-link btn-cursor">Editar</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <div class="col-md-4">
+        <label>Nombre de usuario <small class="text-danger"><strong>*</strong></small> </label>
+        <input class="form-control" type="text" name="userName" placeholder="Campo alfanumérico" ngModel  autocomplete="off" />
+      </div>
 
+      <div class="col-md-2 btn-ubiety">
+        <button type="submit" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+          </svg>
+          Consultar
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>

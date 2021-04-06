@@ -1,145 +1,82 @@
-<div id="stepper1" class="bs-stepper">
-    <div class="bs-stepper-header">
-      <div class="step" data-target="#test-l-2">
-        <button class="step-trigger">
-          <span class="bs-stepper-circle">1</span>
-          <span class="bs-stepper-label">INFORMACIÓN USUARIO</span>
-        </button>
+<div class="container-fluid container-main">
+  <h4>Módulo Crear :: Administración usuario</h4>
+  <p class="text-danger">Los campos marcados con asterisco (*) son requeridos.</p>
+
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>CÉDULA *</label>
+        <input type="text" class="form-control" maxlength="13" placeholder="Campo numérico" />
       </div>
+
+      <div class="form-group">
+        <label>NOMBRE *</label>
+        <input type="text" class="form-control" maxlength="50" placeholder="Campo alfabético" />
+      </div>
+
+      <div class="form-group">
+        <label>USERNAME *</label>
+        <input type="text" class="form-control" maxlength="50" placeholder="Campo alfanumérico" />
+      </div>
+
+      <div class="form-group">
+        <label>CORREO ELECTRÓNICO *</label>
+        <input type="text" class="form-control" maxlength="51" placeholder="Campo alfanumérico" />
+      </div>
+
+
+
     </div>
 
-    <div class="bs-stepper-content">
-      <div id="test-l-2" class="content">
-  
-        <form>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>CÉDULA *</label>
-                <input type="text" class="form-control" formControlName="txtCedula" maxlength="13" placeholder="Campo numérico" />
-                <p *ngIf="objFormCreate.get('txtCedula').hasError('maxlength')" class="color-text-validator">
-                El máximo de caracteres permitidos de caracteres es 12. </p>
-              </div>
-  
-              <div class="form-group">
-                <label>NOMBRE *</label>
-                <input type="text" class="form-control" formControlName="txtNombreUsuario"
-                maxlength="50" placeholder="Campo alfabético" />
-                <p *ngIf="objFormCreate.get('txtNombreUsuario').hasError('minlength')"
-                class="color-text-validator">
-                El número de caracteres permitidos es: min. 3 y max. 50.
-                </p>
-              </div>
-  
-              <div class="form-group">
-                <label>USERNAME *</label>
-                <input type="text" class="form-control" formControlName="txtUserName" maxlength="50"
-                    placeholder="Campo alfanumérico" />
-                <p *ngIf="objFormCreate.get('txtUserName').hasError('minlength')"
-                    class="color-text-validator">
-                    El número de caracteres permitidos es: min. 3 y max. 50.
-                </p>
-              </div>
-  
-              <div class="form-group">
-                <label class="control-label" for="password">CONTRASEÑA *</label>
-                <input type="password" id="password" class="form-control" formControlName="txtPassword" maxlength="11">
-                <i class="toggle-password fa fa-fw fa-eye-slash" (click)="viewPsw()"></i>
-                <div class="color-text-validator" *ngIf="objFormCreate.get('txtPassword').invalid && (objFormCreate.get('txtPassword').touched || objFormCreate.get('txtPassword').dirty)">
-                  <div *ngIf="objFormCreate.get('txtPassword').hasError('required')">
-                    Se requiere contraseña.
-                </div>
-        
-                <div *ngIf="objFormCreate.get('txtPassword').hasError('minlength')">
-                    La contraseña debe tener mínimo 8 caracteres.
-                </div>
-
-                <div *ngIf="objFormCreate.get('txtPassword').hasError('maxlength')">
-                    La contraseña debe tener máximo 10 caracteres.
-                </div>
-        
-                <div class="color-text-validator" *ngIf="objFormCreate.get('txtPassword').hasError('passwordStrength')">
-                    La contraseña requiere: números, letras minúsculas, letras mayúsculas y caracteres especiales.
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="control-label" for="confirmPassword">CONFIRMAR CONTRASEÑA*</label>
-              <input type="password" id="confirmPassword" class="form-control"
-                  formControlName="txtConfirmPassword">
-              <i class="toggle-confirmPassword fa fa-fw fa-eye-slash"
-                  (click)="viewConfirmPsw()"></i>
-              <p class="color-text-validator" *ngIf="objFormCreate.errors?.mismatch && (objFormCreate.controls['txtConfirmPassword'].value != '')">
-                  La contraseña no coincide</p>
-          </div>
 
 
-          </div>
-  
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>CORREO ELECTRÓNICO *</label>
-                <input type="text" class="form-control" formControlName="txtEmail" maxlength="51"
-                placeholder="Campo alfanumérico" />
-                <p *ngIf="objFormCreate.get('txtEmail').errors?.pattern"
-                class="color-text-validator">
-                Por favor ingrese su dirección de correo electrónico válida
-                </p>
-                <p *ngIf="objFormCreate.get('txtEmail').hasError('maxlength')"
-                class="color-text-validator">
-                El máximo de caracteres permitidos es 50.
-                </p>
-              </div>
-  
-              <div class="form-group">
-                <label>CONSTRUCTORA *</label>
-                <select class="form-control" formControlName="cmbRol">
-                  
-                  
-              </select>
-              </div>
-  
-              <div class="form-group">
-                <label>ROL *</label>
-                <select class="form-control" formControlName="cmbRol">
-                    <option value="" disabled selected> Seleccionar una opción</option>
-                    
-                    
-                </select>
-            </div>
-  
-  
-  
-              <button type="submit" class="btn btn-primary col-md-6 btn-register">
-  
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                  class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                  <path
-                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                </svg>
-  
-                Registrar
-  
-              </button>
-  
-  
-  
-            </div>
-          </div>
-        </form>
-  
+    <div class="col-md-6">
+
+      <div class="form-group">
+        <label>CONSTRUCTORA *</label>
+        <select class="form-control">
+          <option value="" disabled selected> Seleccionar una opción</option>
+        </select>
       </div>
-  
-      <div class="input-group input-group-location">
-        <hr>
-        <!--<div class="input-group-append" id="button-addon4">
-          <button (click)="previous()" class="btn btn-outline-secondary">Previous</button>
-          <button (click)="next()" class="btn btn-outline-secondary">Next</button>
-        </div>-->
+
+      <div class="form-group">
+        <label>ROL *</label>
+        <select class="form-control">
+          <option value="" disabled selected> Seleccionar una opción</option>
+        </select>
       </div>
-  
-  
-  
+
+      <div class="form-group">
+        <label class="control-label" for="password">CONTRASEÑA *</label>
+        <input type="password" id="password" class="form-control" maxlength="11">
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="confirmPassword">CONFIRMAR CONTRASEÑA*</label>
+        <input type="password" id="confirmPassword" class="form-control">
+        <i class="toggle-confirmPassword fa fa-fw fa-eye-slash"></i>
+      </div>
+
+      <button type="submit" class="btn btn-primary col-md-6 btn-register">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+          <path
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>
+
+        Registrar
+
+      </button>
+
+
+
     </div>
+
+    
+
   </div>
+
+</div>

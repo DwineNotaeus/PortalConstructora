@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import Stepper from 'bs-stepper';
+import { NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { UtilitiesService } from 'src/app/core/services/utilities.service';
 
 @Component({
   selector: 'app-editar',
@@ -11,55 +10,30 @@ import { environment } from 'src/environments/environment';
 })
 export class EditarComponent implements OnInit {
 
-  public dtOptions: DataTables.Settings = {};
-  //private stepper: Stepper;
   persons: any[] = [];
+  public dtOptions: DataTables.Settings = {};
+  public userName: string;
 
   public dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient) { 
-
+  constructor(private serviceUtilities: UtilitiesService) {
   }
 
   ngOnInit(): void {
-    debugger;
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 2
-    };
-    this.cargarDT();
-    //this.cargarStepper();
+    this.dtOptions = this.serviceUtilities.optionsDatatable();
   }
 
-  cargarDT() {
-    this.httpClient.post(`${environment.urlApi}ProjectDetails/GetRegion`, '').subscribe((data: any) => {
-      this.persons = Object.assign(data['Data']);
-      this.dtTrigger.next();
-    });
-  }
+  onSubmit(inputSearch: NgForm) {
+    console.log(inputSearch.value);
 
-  /*cargarStepper(){
-    this.stepper = new Stepper(document.querySelector('#stepper1'), {
-      linear: false,
-      animation: true
-    })
-  }*/
+    if (inputSearch.invalid) {
+      return;
+    }
+    this.userName = inputSearch.controls['userName'].value;
+  }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
-
-  /*next() {
-    this.stepper.next();
-  }
-
-  previous() {
-    this.stepper.previous();
-  }
-
-  onSubmit() {
-    return false;
-  }*/
-
 
 }
