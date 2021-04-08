@@ -16,6 +16,9 @@ import { SearchByProjectsComponent } from './modules/search-by-projects/search-b
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { SearchByDocumentComponent } from './modules/search-by-document/search-by-document.component';
 import { BulkLoadComponent } from './modules/bulk-load/bulk-load.component';
+import { RecaptchaModule, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
+import { ForgotPasswordComponent } from './modules/authentication/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { BulkLoadComponent } from './modules/bulk-load/bulk-load.component';
     LoginComponent,
     SearchByProjectsComponent,
     SearchByDocumentComponent,
-    BulkLoadComponent
+    BulkLoadComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { BulkLoadComponent } from './modules/bulk-load/bulk-load.component';
     FormsModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
+    RecaptchaModule,
     MsalModule.forRoot({
       auth: {
         clientId: "cb0ddcd3-1cd3-4cf2-b4bf-334b61621b67",
@@ -49,9 +54,13 @@ import { BulkLoadComponent } from './modules/bulk-load/bulk-load.component';
       consentScopes: [
         "user.read", "openid", "profile"
       ]
-    })   
+    })
   ],
-  providers: [ConsultasIQGuard, { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
+  providers: [
+    ConsultasIQGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.keyCaptcha }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

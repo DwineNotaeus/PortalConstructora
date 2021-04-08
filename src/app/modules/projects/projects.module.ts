@@ -13,7 +13,7 @@ import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 
 @NgModule({
     imports: [SharedModule, ProjectsRoutingModule, DataTablesModule, CommonModule, NgMultiSelectDropDownModule.forRoot()],
-    declarations: [ProjectsComponent, CrearComponent, EditarComponent, ContactoComponent, OnlyNumberDirective, OnlyLetterDirective]
+    declarations: [ProjectsComponent, CrearComponent, EditarComponent, ContactoComponent ]
 })
 
 export class ProjectsModule { }

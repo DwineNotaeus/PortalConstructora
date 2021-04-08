@@ -5,3 +5,12 @@
 .dt-container {
   margin-top: 4%;
 }
+
+.header-color {
+  color: white;
+  background-color: #00448d;
+}
+
+.close{
+  color: white;
+}

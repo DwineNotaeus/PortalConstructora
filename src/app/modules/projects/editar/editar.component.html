@@ -93,38 +93,33 @@
         <tr>
           <th>PROYECTO</th>
           <th>CONSTRUCTORA</th>
+          <th>INSTRUMENTADOR</th>
+          <!-- <th>ESTRATO INMUEBLE</th> -->
           <th>CIUDAD</th>
-          <th>DIRECCIÓN</th>
-          <th>ETAPA/TORRE</th>
-          <th>ENTREGA INMUEBLE</th>
-          <!-- <th scope="col">TIPO PROYECTO</th>
-          <th scope="col">TIPO INMUEBLE</th>
-          <th scope="col">AVALÚO TIPO</th>
-          <th scope="col">ESTRATO INMUEBLE</th>
-          <th scope="col">NÚMERO UNIDADES</th>
-          <th scope="col">DIRECCIÓN PROYECTO</th>
-          <th scope="col">INSTRUMENTADOR</th>
-          <th scope="col">ESTADO</th> -->
           <th>SELECCIONAR</th>
-          <th>CONTACTO</th>
+          <th>VER DETALLE</th>
+          <!-- <th>NÚMERO UNIDADES</th>
+          <th>FECHA ENTREGA INMUEBLE</th> -->
+          <!-- <th>TIPO PROYECTO</th>
+          <th>AVALÚO TIPO</th>
+          <th>TIPO INMUEBLE</th>
+          <th>SELECCIONAR</th>
+          <th>CONTACTO</th> -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let elemento of lstProject;">
           <td><button type="button" class="btn btn-link">{{elemento.Nombre}}</button></td>
           <td>{{elemento.NombreConstructora}}</td>
-          <td>{{elemento.NombreCiudad}}</td>
-          <td>{{elemento.Direccion}}</td>
-          <td>{{elemento.Etapa_Torre}}</td>
-          <td>{{elemento.FechaEntrega }}</td>
-          <!-- <td>{{elemento.TipoProyecto}}</td>
-          <td>{{elemento.TipoInmueble}}</td>
-          <td>{{elemento.AvaluoTipo}}</td>
-          <td>{{elemento.EstratoInmueble}}</td>
-          <td>{{elemento.NumeroUnidades}}</td>
-          <td>{{elemento.DireccionProyecto}}</td>
           <td>{{elemento.Instrumentador}}</td>
-          <td>{{elemento.Estado }}</td> -->
+          <!-- <td>{{elemento.EstratoInmueble}}</td> -->
+          <td>{{elemento.NombreCiudad}}</td>
+          <!-- <td>{{elemento.NumeroUnidades}}</td>
+          <td>{{elemento.FechaEntrega }}</td>
+          <td>{{elemento.TipoProyecto}}</td> 
+          <td>{{elemento.AvaluoTipo}}</td>
+          <td>{{elemento.TipoInmueble}}</td> -->
+
           <td>
             <button class="btn btn-link btn-cursor" data-toggle="modal" data-target="#EditarContacto"
               (click)=" onPreUpdate(elemento)">

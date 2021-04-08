@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 .container-main {
-    margin: 20px;
-  }
+  margin: 20px;
+}
+
+.btn-primary {
+  color: rgb(0, 0, 0);
+  background-color: #ffc20e;
+  border-color: #ffc20e;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+  color: rgb(0, 0, 0);
+  background-color: #ffc20e;
+  border-color: #ffc20e;
+  /*set the color you want here*/
+}

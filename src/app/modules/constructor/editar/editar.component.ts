@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { NgForm } from '@angular/forms';
+import { UtilitiesService } from 'src/app/core/services/utilities.service';
 
 @Component({
   selector: 'app-editar',
@@ -10,31 +12,27 @@ import { environment } from 'src/environments/environment';
 })
 export class EditarComponent implements OnInit {
 
-  public dtOptions: DataTables.Settings = {};
   persons: any[] = [];
+  public dtOptions: DataTables.Settings = {};
+  public nameConstructor: string;
 
   public dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private serviceUtilities: UtilitiesService) {
   }
 
   ngOnInit(): void {
-    debugger;
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 2
-    };
-    this.cargarDT();
-
+    this.dtOptions = this.serviceUtilities.optionsDatatable();
   }
 
-  cargarDT() {
-    this.httpClient.post(`${environment.urlApi}ProjectDetails/GetRegion`, '').subscribe((data: any) => {
-      this.persons = Object.assign(data['Data']);
-      this.dtTrigger.next();
-    });
-  }
+  onSubmit(inputSearch: NgForm) {
+    console.log(inputSearch.value);
 
+    if (inputSearch.invalid) {
+      return;
+    }
+    this.nameConstructor = inputSearch.controls['inputSearch'].value;
+  }
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }

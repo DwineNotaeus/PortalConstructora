@@ -1,19 +1,19 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[OnlyNumber]'
+	selector: '[OnlyNumber]'
 })
 export class OnlyNumberDirective {
 
 	@Input() OnlyNumber: boolean;
 
-  constructor(private elemDom: ElementRef, private renderer: Renderer2) { 
-    console.log('directiva OK');
-    renderer.setStyle(elemDom.nativeElement, "color", "green");
-  }
+	constructor(private elemDom: ElementRef, private renderer: Renderer2) {
+		// console.log('directiva OK');
+		renderer.setStyle(elemDom.nativeElement, "color", "green");
+	}
 
 
-  @HostListener("keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
+	@HostListener("keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
 		const e = event;
 		if (this.OnlyNumber) {
 			if (

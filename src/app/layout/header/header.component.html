@@ -1,24 +1,36 @@
 <div class="wrapper">
   <!-- Sidebar Holder -->
-  <nav id="sidebar">
-      <div class="sidebar-header">
-        <img class="logoEntidad" src="../../../../assets/img/logo-bancolombiaCombinado.png" id="icon" alt="User Icon" />
+  <nav id="sidebar" class="containerMenu">
+
+    <!-- <img src="../../../../assets/img/logoMenu.png" id="icon" alt="User Icon" /> -->
+    <!-- <img src="../../../../assets/img/logoMenuCopia.png" id="icon" alt="User Icon" /> -->
+    <!-- <img src="../../../../assets/img/PruebaLogoMenu.png" id="icon" alt="User Icon" /> -->
+    <img src="../../../../assets/img/iconoBnca.png" id="icon" alt="User Icon" />
+    <!-- <img src="../../../../assets/img/iconoMenu.png" id="icon" alt="User Icon" /> -->
+
+    <!-- <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+      <div class="card-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
+          <path d="M6 1v3H1V1h5zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12v3h-5v-3h5zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8v7H1V8h5zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6v7h-5V1h5zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
+        </svg>
       </div>
+    </div> -->
+    <hr>
 
-      <div *ngFor="let elemento of MenuItem; let i = index ">
+    <div *ngFor="let elemento of MenuItem; let i = index ">
 
-        <nav class="nav-list">
-      
-      
-      
-          <ul class="ul-list">
-      
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="[elemento.RutaUrl]"
-                *ngIf="elemento.Funcionalidades.length == 0">{{ elemento.Modulo }}</a>
-            </li>
+      <nav class="nav-list">
 
-            <!-- <li class="nav-item">
+
+
+        <ul class="ul-list">
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="[elemento.RutaUrl]"
+              *ngIf="elemento.Funcionalidades.length == 0">{{ elemento.Modulo }}</a>
+          </li>
+
+          <!-- <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" data-target="#submenu" *ngIf="elemento.Funcionalidades.length != 0" (click)="expandDynamicMenu(elemento)">{{ elemento.Modulo}}</a>
               <div *ngIf="elemento.expanded">
                 <ul id="submenu" class="nav-list collapse" *ngFor="let item of elemento.Funcionalidades">
@@ -26,69 +38,78 @@
                 </ul>
               </div>
             </li> -->
-      
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" [attr.data-target]="'#details-'+ elemento.IdModulo"
-                *ngIf="elemento.Funcionalidades.length != 0">{{ elemento.Modulo}}</a>
-      
-              <ul id="details-{{elemento.IdModulo}}" class="nav-list collapse" *ngFor="let item of elemento.Funcionalidades">
-                <li><a [routerLink]="[elemento.RutaUrl, item.UrlFuncionalidad]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
-                </svg> {{ item.NombreFuncionalidad }}</a></li>
-              </ul>
-      
-            </li>
-      
-          </ul>
-      
-        </nav>
-      
-      </div>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" [attr.data-target]="'#details-'+ elemento.IdModulo"
+              *ngIf="elemento.Funcionalidades.length != 0">{{ elemento.Modulo}}</a>
+
+            <ul id="details-{{elemento.IdModulo}}" class="nav-list collapse"
+              *ngFor="let item of elemento.Funcionalidades">
+              <li><a [routerLink]="[elemento.RutaUrl, item.UrlFuncionalidad]"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z" />
+                  </svg> {{ item.NombreFuncionalidad }}</a></li>
+            </ul>
+
+          </li>
+
+        </ul>
+
+      </nav>
+
+    </div>
 
   </nav>
 
   <!-- Page Content Holder -->
   <div id="content">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
 
-              <button type="button" id="sidebarCollapse" class="navbar-btn">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-              </button>
-              <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <i class="fas fa-align-justify"></i>
-              </button>
+        <button type="button" id="sidebarCollapse" class="navbar-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-align-justify"></i>
+        </button>
 
-              <div class="dropdown">
-    
-                <div class="container">
-                  <li class="nav-item dropdown">
-                    <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                      </svg> {{ userName }}!
-                    </button>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="#">Cerrar sesión</a>
-                        </div>
-                      </li>
-                </div>
+        <img class="headerImg" src="../../../assets/img/logo-bancolombiaCombinado.png" alt="">
+
+        <div class="dropdown">
+
+          <div class="container">
+            <li class="nav-item dropdown">
+              <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg> {{ userName }}!
+              </button>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" [routerLink]="['/']">Cerrar sesión</a> 
+
               </div>
-
+            </li>
           </div>
-      </nav>
-      
+        </div>
+
+      </div>
+    </nav>
 
 
-      <router-outlet></router-outlet>
+
+    <router-outlet></router-outlet>
 
 
 
-      
+
+
   </div>
 </div>
-
-

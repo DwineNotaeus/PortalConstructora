@@ -11,6 +11,10 @@ import { SearchByProjectsComponent } from "./modules/search-by-projects/search-b
 const routes: Routes = [
 
     { path: "login", component: LoginComponent },
+    {
+        path: "forgot-password",
+        loadChildren: () => import("./modules/authentication/authentication.module").then((m) => m.AuthenticationModule)
+    },
 
     {
         path: "",   component: LayoutComponent,
@@ -42,7 +46,7 @@ const routes: Routes = [
             {
                 path: "Contactos", 
                 loadChildren: () =>import("./modules/contacts/contacts.module").then((m) => m.ContactsModule)
-            }
+            }            
         ]
     },
 

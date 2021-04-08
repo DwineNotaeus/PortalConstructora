@@ -4,6 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { searchByProject } from 'src/app/core/models/projects.model';
 import { ProjectsService } from 'src/app/core/services/projects.service';
+import { UtilitiesService } from 'src/app/core/services/utilities.service';
 
 @Component({
   selector: 'app-search-by-document',
@@ -22,19 +23,12 @@ export class SearchByDocumentComponent implements OnInit, OnDestroy, AfterViewIn
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
 
-  constructor(private projectService: ProjectsService) {
+  constructor(private projectService: ProjectsService, private serviceUtilities: UtilitiesService) {
     this.ProjectsModel = new searchByProject();
   }
 
   ngOnInit(): void {
-    this.optionsDatatable();
-  }
-
-  optionsDatatable() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5
-    };
+    this.dtOptions = this.serviceUtilities.optionsDatatable();
   }
 
   ngAfterViewInit(): void {

@@ -44,8 +44,7 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
   ngOnInit(): void {
     this.configurarMultiSelect();
     this.loadDropdownList();
-    this.optionsDatatable();
-
+    this.dtOptions = this.serviceUtilities.optionsDatatable();
   }
 
   onUpload() {
@@ -70,19 +69,7 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
     console.log('onFileChange', e);
   }
 
-  optionsDatatable() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 7,
-      // serverSide: true,
-      // processing: true
-      // paging: true,
-      // searching: false,
-      // destroy: true,
-      lengthChange: false,
-      language: { url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json' }
-    };
-  }
+
 
   configurarMultiSelect() {
     this.dropdownSettings = {

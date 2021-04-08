@@ -1,41 +1,54 @@
 <body class="bg-Login">
-  
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-    <!-- <app-header></app-header> -->
-    
-    <!-- Icon -->
-    <div class="fadeIn first">      
-      <img class="logoEntidad" src="../../../../assets/img/logo-bancolombiaCombinado.png" id="icon" alt="User Icon" />
-      <hr />
+
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <!-- <app-header></app-header> -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img class="logoEntidad" src="../../../../assets/img/logo-bancolombiaCombinado.png" id="icon" alt="User Icon" />
+        <hr />
+      </div>
+
+      <!-- Login Form -->
+
+      <!-- <span class="text-danger">El correo es obligatorio</span> -->
+      <form #formLogin="ngForm" (ngSubmit)="onSubmit(formLogin)" novalidate autocomplete="off">
+        <div class="wrap-input100 m-b-16">
+          <input class="input100" type="text" name="userName" [(ngModel)]="user.userName" placeholder="Usuario"
+            autofocus>
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100 m-b-16">
+          <input class="input100" type="password" name="passowrd" [(ngModel)]="user.password" placeholder="Contraseña">
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="container" style="margin-left: 14%; margin-top: 3%; margin-bottom: 3%;">
+          <re-captcha (resolved)="resolved($event)" (error)="onError($event)" errorMode="handled"
+            siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+        </div>
+
+        <input type="submit" class="fadeIn fourth" value="Ingresar">
+
+
+
+      </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        
+        <li [routerLinkActive]="['link-active']">
+          <a class="underlineHover" [routerLink]="['/forgot-password']">¿Olvidó su contraseña?</a>
+      </li>
+      </div>
+
+
     </div>
-
-    <!-- Login Form -->
-
-    <!-- <span class="text-danger">El correo es obligatorio</span> -->
-    <form #formLogin="ngForm" (ngSubmit)="onSubmit(formLogin)" novalidate autocomplete="off">
-      <div class="wrap-input100 m-b-16">
-        <input class="input100" type="text" name="userName" [(ngModel)]="user.userName" placeholder="Usuario" autofocus>
-        <span class="focus-input100"></span>
-      </div>
-
-      <div class="wrap-input100 m-b-16">
-        <input class="input100" type="password" name="passowrd" [(ngModel)]="user.password" placeholder="Contraseña">
-        <span class="focus-input100"></span>
-      </div>
-
-      <input type="submit" class="fadeIn fourth" value="Ingresar">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <!-- <div id="formFooter"> -->
-      <!-- <a class="underlineHover" href="#">Forgot Password?</a> -->
-    <!-- </div> -->
-
-
   </div>
-</div>
-<app-footer class="fadeInDown"></app-footer>
+
+  <app-footer class="fadeInDown"></app-footer>
 </body>

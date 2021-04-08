@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { MsalService } from '@azure/msal-angular';
 import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,25 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   public user: UserLogin;
+  public siteKey: string;
   isLoggedIn: boolean = false;
   userData: any;
 
   constructor(private authService: AuthService, private msalService: MsalService, private router: Router) {
     this.user = new UserLogin();
+    
   }
 
   ngOnInit(): void {
+    this.siteKey = environment.keyCaptcha;
+  }
+
+  public resolved(captchaResponse: string): void {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
+
+  public onError(errorDetails: any): void {
+    console.log(`reCAPTCHA error encountered; details:`, errorDetails);
   }
 
   onSubmit(form: NgForm) {

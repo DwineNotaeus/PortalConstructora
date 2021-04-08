@@ -11,7 +11,7 @@ export class LocationService {
   constructor(private _http: HttpClient) { }
 
   getAllRegion(): Observable<any> {
-    return this._http.get(`${environment.urlApi}ProjectDetails/GetRegion`);
+    return this._http.get(`${environment.urlApiNew}Localizacion/ListaRegiones`);
   }
 
   getDepartamentByIdRegion(value: string): Observable<any> {
@@ -25,8 +25,4 @@ export class LocationService {
     formData.append('txtIdDepartamento', value);
     return this._http.post(`${environment.urlApi}ProjectDetails/GetCiudad`, formData);
   }
-
-
-
-
 }

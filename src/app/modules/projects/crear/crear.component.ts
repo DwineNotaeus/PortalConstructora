@@ -63,7 +63,9 @@ export class CrearComponent implements OnInit {
 
   loadRegions() {
     this.serviceLocation.getAllRegion().subscribe(data => {
-      this.ListRegions = Object.assign(data['Data']);
+      console.log('data', data);
+      this.ListRegions = data;
+      // this.ListRegions = Object.assign(data['Data']);
       console.log('ListRegions', this.ListRegions)
     }, error => console.log(error));
   }
