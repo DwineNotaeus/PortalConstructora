@@ -10,10 +10,11 @@ import { OnlyNumberDirective } from "src/app/shared/directives/only-number.direc
 import { SharedModule } from "src/app/shared/shared.module";
 import { OnlyLetterDirective } from "src/app/shared/directives/only-letter.directive";
 import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
+import { ConsultarComponent } from './consultar/consultar.component';
 
 @NgModule({
     imports: [SharedModule, ProjectsRoutingModule, DataTablesModule, CommonModule, NgMultiSelectDropDownModule.forRoot()],
-    declarations: [ProjectsComponent, CrearComponent, EditarComponent, ContactoComponent ]
+    declarations: [ProjectsComponent, CrearComponent, EditarComponent, ContactoComponent, ConsultarComponent ]
 })
 
 export class ProjectsModule { }

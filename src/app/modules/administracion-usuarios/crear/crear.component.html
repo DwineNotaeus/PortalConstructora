@@ -48,19 +48,30 @@
           </select>
         </div>
 
-        <div class="form-group">
-          <label passwordValidator class="control-label" for="password">CONTRASEÑA *</label>
-          <input type="password" class="form-control" maxlength="11" passwordValidator="password" appShowHidePassword
-            appMatchPassword="password">
 
+        <label passwordValidator>CONTRASEÑA *</label>
+
+        <div class="form-group input-group">
+          <input id="inputPsw" type="password" class="input100" placeholder="Ingresar una contraseña" appShowHidePassword>
+          <div class="input-group-btn">
+
+          </div>
         </div>
 
-        <div class="inner-addon right-addon form-group">
-          <label passwordValidator class="control-label" for="confirmPassword">CONFIRMAR CONTRASEÑA*</label>
-          <input type="password" class="form-control" passwordValidator="password" appShowHidePassword
-            appMatchPassword="password">
-            
+
+
+        <label passwordValidator>CONFIRMAR CONTRASEÑA*</label>
+
+        <div class="form-group input-group">
+          <input id="inputConfirmPsw" type="password" class="input100" placeholder="Ingresar una contraseña" appShowHidePassword>
+          <div class="input-group-btn">
+
+          </div>
         </div>
+
+
+
+
 
         <button type="submit" class="btn btn-primary col-md-6 btn-register">
 

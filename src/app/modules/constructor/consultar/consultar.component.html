@@ -1,0 +1,32 @@
+<div class="container-fluid container-main">
+  <h4>Módulo Consultar ::  Constructora</h4>
+  <p class="text-danger">Los campos marcados con asterisco (*) son requeridos.</p>
+  <hr />
+
+  <form #formSearchConstructor="ngForm" autocomplete="off">
+    <div class="row">
+
+      <div class="col-md-4">
+
+        <label>NOMBRE CONSTRUCTORA *</label>
+        <ng-multiselect-dropdown [placeholder]="'Seleccionar'" [settings]="dropdownSettings" [data]="dropdownList"
+          [(ngModel)]="selectedItems" name="inputSearch" (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onSelectAll($event)" (onDeSelect)="onDeselect($event)">
+        </ng-multiselect-dropdown>
+
+      </div>
+
+      <div class="col-md-2 btn-ubiety">
+        <button type="submit" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+          </svg>
+          Consultar
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>

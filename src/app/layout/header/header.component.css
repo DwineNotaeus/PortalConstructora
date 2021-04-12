@@ -401,7 +401,21 @@ ul.ul-list {
 }
 
 
-@media (max-width: 1024px) {
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  .headerImg {
+    background-size: cover;
+    width: 14%;
+  }
+  #icon {
+    width: 90%;
+    margin-left: 10%;
+  }
+}
+
+
+/* @media (max-width: 1024px) {
   .headerImg {
     background-size: cover;
     width: 14%;
@@ -421,7 +435,7 @@ ul.ul-list {
     width: 90%;
     margin-left: 10%;
   }
-}
+} */
 
 
 /* ordenador portátil medio */

@@ -1,7 +1,16 @@
 .btn-ubiety {
-    margin-top: 30px;
-  }
+  margin-top: 30px;
+}
 
-  .dt-container {
-    margin-top: 4%;
-  }
+.dt-container {
+  margin-top: 4%;
+}
+
+.header-color {
+  color: white;
+  background-color: #00448d;
+}
+
+.close {
+  color: white;
+}

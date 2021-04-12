@@ -12,7 +12,6 @@ export class CrearComponent implements OnInit {
   constructor() {     
   }
 
-
   ngOnInit(): void {
   }
 

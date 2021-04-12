@@ -14,10 +14,26 @@ a:hover {
   margin-top: 4%;
 }
 
-.card{
+.card {
   width: 100% !important;
 }
 
-.custom-file-input ~ .custom-file-label::after {
+.custom-file-input~.custom-file-label::after {
   content: "Elegir archivo";
+}
+
+.header-color {
+  color: white;
+  background-color: #00448d;
+  opacity: .7;
+  border-top-left-radius: .0rem;
+  border-top-right-radius: .0rem;
+}
+
+.close {
+  color: white;
+}
+
+.modal-content {
+  border: 3px solid #4d7caf; /* */
 }

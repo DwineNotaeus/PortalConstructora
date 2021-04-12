@@ -6,6 +6,7 @@ import { Projects, ProjectsIds, searchByProject } from 'src/app/core/models/proj
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProjectsService } from 'src/app/core/services/projects.service';
 import { UtilitiesService } from 'src/app/core/services/utilities.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -44,7 +45,22 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
   ngOnInit(): void {
     this.configurarMultiSelect();
     this.loadDropdownList();
-    this.dtOptions = this.serviceUtilities.optionsDatatable();
+    // this.dtOptions = this.serviceUtilities.optionsDatatable();
+    this.optionsDatatable();
+  }
+
+  optionsDatatable() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 2,
+      // serverSide: true,
+      // processing: true
+      // paging: true,
+      searching: false,
+      // destroy: true,
+      lengthChange: false,
+      language: { url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json' }
+    };
   }
 
   onUpload() {
@@ -121,6 +137,7 @@ export class SearchByProjectsComponent implements OnInit, OnDestroy, AfterViewIn
 
 
   gridDetailsProject(item: searchByProject) {
+
     debugger;
     console.log('item', item)
     this.ProjectsModel.RadicadoBanco = item.RadicadoBanco;
