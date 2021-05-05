@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserLogin, UserToken } from '../models/user.model';
 import jwt_decode from "jwt-decode";
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,22 @@ export class AuthService {
   }
 
   login(userLogin: UserLogin) {
-    return this._http.post(`${environment.urlApi}Authentication/UserLogin`, userLogin);
+    debugger;
+    return this._http.post(`${environment.urlApiNew}Authentication/AuthLogin`, userLogin);
   }
 
   getTokenAPI(UserName: string) {
-    return this._http.post(`${environment.urlApi}User/getAuthorize`, UserName);
+    debugger;
+    //Establecemos cabeceras
+    // let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(`${environment.urlApiNew}WeatherForecast`, UserName);
   }
+
+  // getTokenAPI(UserName: string) {
+  //   //Establecemos cabeceras
+  //   // let headers = new HttpHeaders().set('Content-Type', 'application/json');
+  //   return this._http.post(`${environment.urlApiNew}Authentication/`, UserName);
+  // }
 
   getFuncionalidadesPorRol() {
     return this._http.get(`${environment.urlApi}User/getFuncionalidadesPorRol`);
@@ -46,5 +57,19 @@ export class AuthService {
   getUserNameLoggedIn() {
     return this._http.get(`${environment.urlApi}User/postGetUser`);
   }
+
+  // validateCaptcha(): Promise<any> {
+	// 	return new Promise((resolve, reject) => {
+	// 		this.recaptchaV3Service.execute('login').subscribe(
+	// 			(token) => {
+	// 				resolve(token);
+	// 			},
+	// 			(err) => {
+	// 				console.error('captcha', err);
+	// 				reject(err);
+	// 			}
+	// 		);
+	// 	});
+	// }
 
 }

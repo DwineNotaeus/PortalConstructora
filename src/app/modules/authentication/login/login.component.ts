@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserLogin } from 'src/app/core/models/user.model';
+import { UserLogin, UserToken } from 'src/app/core/models/user.model';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MsalService } from '@azure/msal-angular';
@@ -21,14 +21,16 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private msalService: MsalService, private router: Router) {
     this.user = new UserLogin();
-    
   }
 
   ngOnInit(): void {
     this.siteKey = environment.keyCaptcha;
+    this.user.companyId = 12;
+    this.user.applicationId = environment.applicationId;
   }
 
   public resolved(captchaResponse: string): void {
+    this.user.token = captchaResponse;
     console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 
@@ -39,71 +41,49 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
 
 
-    if (this.isLoggedIn) {
-      this.msalService.logout();
-    } else {
-      this.msalService
-        .loginPopup()
-        .then((result) => {
+    // if (this.isLoggedIn) {
+    //   this.msalService.logout();
+    // } else {
+    //   this.msalService
+    //     .loginPopup()
+    //     .then((result) => {
 
-          console.log("Login success: ", result);
+    //       console.log("Login success: ", result);
 
-          let EstadoUsuario = result.idTokenClaims['state'];
-          let usuarioB2C = result.idTokenClaims['family_name'];
+    //       let EstadoUsuario = result.idTokenClaims['state'];
+    //       let usuarioB2C = result.idTokenClaims['family_name'];
 
-          let tokenB2C = result.idToken['rawIdToken'];
+    //       let tokenB2C = result.idToken['rawIdToken'];
 
-          this.getTokenFromAPI(usuarioB2C, EstadoUsuario);
+    //       this.getTokenFromAPI(usuarioB2C, EstadoUsuario);
 
-        })
-        .catch((err) => {
-          console.log("Login failed : ", JSON.stringify(err));
-        });
-    }
-    // console.log('Credenciales de usuario', form.value);
-    // if (form.invalid) {
-    //   return;
+    //     })
+    //     .catch((err) => {
+    //       console.log("Login failed : ", JSON.stringify(err));
+    //     });
     // }
-    // let isValidCaptcha = true;
-    // /* 
-    //     ::::::::::::::::::::::: 
-    //     ::: Validar captcha ::: 
-    //     ::::::::::::::::::::::: 
-    // */
-    // if (!isValidCaptcha) { return; }
-    // this.login();
-  }
 
-  getTokenFromAPI(usuarioB2C: string, EstadoUsuario: string) {
-    debugger;
-    if (EstadoUsuario) {
+    // this.user.token = await this.authService.validateCaptcha().catch(() => {
+    // this.toastr.error('Validación de Captcha inconclusa, por favor recarga la página nuevamente');
+    // isValidCaptcha = false;
+    // this.isLoading = false;
+    // });
 
-      this.authService.getTokenAPI(usuarioB2C).subscribe(response => {
-
-        this.userData = response;
-        if (this.userData.Data.key == "99") {
-          let decoded = jwt_decode(this.userData.Data.value);
-          
-          console.log('decoded', decoded['unique_name']);
-          
-          if (decoded != undefined) {
-            debugger;
-            if (decoded['unique_name'] == usuarioB2C) {
-
-              // const userToken: UserToken = data.result.authToken;
-              // userToken.active_status = userToken.active_status ?? false;
-              // localStorage.setItem("prw_user", JSON.stringify(userToken));
-
-              this.authService.setUserLoggedIn(this.userData.Data.value);
-              this.validateRole(decoded['role']);
-            }
-          }
-        }
-
-      });
-
+    console.log('Credenciales de usuario', form.value);
+    if (form.invalid) {
+      return;
     }
+    let isValidCaptcha = true;
+    /* 
+        ::::::::::::::::::::::: 
+        ::: Validar captcha ::: 
+        ::::::::::::::::::::::: 
+    */    
+    if (!this.user.token) { return; }
+    this.login();
   }
+
+
 
   validateRole(role: string) {
     switch (role) {
@@ -133,14 +113,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.user).subscribe(
-			async (data) => {
+      async (data) => {
         // Procesar respuesta (data) y almacenar token en localStorage        
-			},
-			(error) => {
-				console.log("error", error);
+      },
+      (error) => {
+        console.log("error", error);
         // Procesar mensaje de error (SweetAlert2)
-			}
-		);
+      }
+    );
   }
 
 }
